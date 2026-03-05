@@ -33,7 +33,7 @@ export function TestimonialsSection({
           <React.Fragment key={index}>
             {part}
             {index < parts.length - 1 && (
-              <span className="text-gold-500">{highlightWord}</span>
+              <span className="text-brand-400">{highlightWord}</span>
             )}
           </React.Fragment>
         ))}
@@ -42,8 +42,8 @@ export function TestimonialsSection({
   }
 
   return (
-    <section className={cn(
-      "bg-black text-white",
+    <section id="testimonials" className={cn(
+      "bg-navy-950 text-white",
       "py-12 sm:py-24 md:py-32 px-0",
       className
     )}>
@@ -71,8 +71,8 @@ export function TestimonialsSection({
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-black to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-black to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-navy-950 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-navy-950 to-transparent" />
         </div>
       </div>
     </section>

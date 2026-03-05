@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Menu, X, Phone, MapPin, Mail, Clock, Shield, Users, Award, Star, ChevronLeft, ChevronRight, ArrowUp, Check, Activity, Heart, Brain, Zap, Target, User, Calendar } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, Phone, MapPin, Mail, Clock, Shield, Users, Award, Star, ArrowUp, Check, Activity, Heart, Zap, Target, ChevronRight } from 'lucide-react';
 import { TestimonialsSection } from '@/components/ui/testimonials-with-marquee';
 import { Timeline } from '@/components/ui/timeline';
 import { GlowingEffect } from '@/components/ui/glowing-effect';
@@ -7,105 +7,124 @@ import { PrivacyPolicy } from '@/components/PrivacyPolicy';
 import { Terms } from '@/components/Terms';
 import { NoticeOfPrivacyPractices } from '@/components/NoticeOfPrivacyPractices';
 
+const BOOKING_URL = 'https://link.vitalityatfocalpoint.com/widget/bookings/discovery-booking-link';
+const ASSESSMENT_URL = 'https://link.vitalityatfocalpoint.com/widget/quiz/o7Sd0lcPVXXs9Exju7Vi';
+const PORTAL_URL = 'https://2ib5r7xl4iaxafsdmomv.app.clientclub.net/login';
+const MAPS_URL = 'https://maps.google.com/?q=15454+N+Frank+Lloyd+Wright+Blvd+A2+Suite+23,+Scottsdale,+AZ+85260';
+
+function useScrollAnimation() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isVisible };
+}
+
+function AnimatedSection({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const { ref, isVisible } = useScrollAnimation();
+  return (
+    <div
+      ref={ref}
+      className={`${className} transition-all duration-700`}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(28px)',
+        transitionDelay: `${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const [currentPage, setCurrentPage] = useState<'home' | 'privacy' | 'terms' | 'notice'>('home');
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
+      setScrolled(window.scrollY > 60);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const testimonials = [
-    {
-      text: "After months of low energy, I finally have my spark back.",
-      author: "T.W."
-    },
-    {
-      text: "Dropped fat, kept my strength, and sleep is way better.",
-      author: "P.K."
-    },
-    {
-      text: "Peptide protocol sped up my shoulder recovery.",
-      author: "B.L."
-    }
-  ];
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const showPage = (page: 'home' | 'privacy' | 'terms' | 'notice') => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  if (currentPage === 'privacy') {
-    return <PrivacyPolicy onBack={() => showPage('home')} />;
-  }
-
-  if (currentPage === 'terms') {
-    return <Terms onBack={() => showPage('home')} />;
-  }
-
-  if (currentPage === 'notice') {
-    return <NoticeOfPrivacyPractices onBack={() => showPage('home')} />;
-  }
+  if (currentPage === 'privacy') return <PrivacyPolicy onBack={() => showPage('home')} />;
+  if (currentPage === 'terms') return <Terms onBack={() => showPage('home')} />;
+  if (currentPage === 'notice') return <NoticeOfPrivacyPractices onBack={() => showPage('home')} />;
 
   const marqueeTestimonials = [
     {
       author: {
-        name: "Sarah M.",
-        handle: "Patient",
-        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+        name: "Amanda T.",
+        handle: "Scottsdale Patient",
+        avatar: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=150&h=150&fit=crop&crop=face"
       },
-      text: "After months of low energy, I finally have my spark back. The hormone optimization program changed my life completely."
+      text: "After years of feeling exhausted no matter how much I slept, the hormone optimization program gave me my energy back. I feel like myself again — sharper, stronger, and actually motivated."
     },
     {
       author: {
-        name: "Michael R.",
-        handle: "Patient", 
-        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+        name: "Marcus H.",
+        handle: "Scottsdale Patient",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
       },
-      text: "Dropped fat, kept my strength, and sleep is way better. The personalized approach made all the difference."
+      text: "The weight management program was unlike anything I'd tried. No gimmicks — just data, a plan, and real accountability. Down 28 pounds and I've kept it off for six months."
     },
     {
       author: {
-        name: "Jennifer L.",
-        handle: "Patient",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
+        name: "Christine V.",
+        handle: "Scottsdale Patient",
+        avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face"
       },
-      text: "Peptide protocol sped up my shoulder recovery significantly. I'm back to my active lifestyle faster than expected."
+      text: "I was skeptical about peptide therapy at first, but the results spoke for themselves. My recovery from workouts improved dramatically and the brain fog I had for years just lifted."
     },
     {
       author: {
-        name: "David K.",
-        handle: "Patient",
-        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+        name: "Robert S.",
+        handle: "Scottsdale Patient",
+        avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face"
       },
-      text: "The team's expertise in functional medicine is outstanding. They addressed root causes, not just symptoms."
+      text: "The team here actually listens. They looked at my labs, explained everything in plain language, and built a protocol that fit my life. My testosterone levels are optimal and I feel 10 years younger."
     },
     {
       author: {
-        name: "Lisa T.",
-        handle: "Patient",
-        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+        name: "Diane M.",
+        handle: "Scottsdale Patient",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face"
       },
-      text: "Professional, knowledgeable, and truly caring. The nutrition program fits perfectly into my busy schedule."
-    }
+      text: "Going through perimenopause was rough until I found this practice. The personalized hormone therapy completely changed how I feel day to day. I wish I had started sooner."
+    },
+    {
+      author: {
+        name: "James L.",
+        handle: "Scottsdale Patient",
+        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face"
+      },
+      text: "The nutrition program integrated perfectly with my hormone protocol. Everything worked together. I lost fat, gained muscle, and my metabolic markers improved across the board."
+    },
   ];
 
   const conditionsData = [
@@ -113,23 +132,23 @@ function App() {
       title: "Energy & Vitality",
       content: (
         <div className="space-y-6">
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Restore your natural energy levels and reclaim the vitality you once had. Our comprehensive approach addresses the root causes of fatigue and low energy.
+          <p className="text-slate-300 text-lg leading-relaxed">
+            Restore your natural energy and reclaim the vitality you once had. Our comprehensive approach addresses the root causes of fatigue and low energy through advanced diagnostics.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
-              <h4 className="font-semibold text-white mb-2">Low energy and fatigue</h4>
-              <p className="text-gray-400 text-sm">Comprehensive hormone evaluation to identify and address underlying causes</p>
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-white mb-2">Low energy and chronic fatigue</h4>
+              <p className="text-slate-400 text-sm">Comprehensive hormone evaluation to identify and address underlying causes of persistent tiredness</p>
             </div>
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
               <h4 className="font-semibold text-white mb-2">Brain fog and low motivation</h4>
-              <p className="text-gray-400 text-sm">Targeted protocols to enhance cognitive function and mental clarity</p>
+              <p className="text-slate-400 text-sm">Targeted protocols to enhance cognitive function, mental clarity, and drive</p>
             </div>
           </div>
-          <img 
+          <img
             src="https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800"
-            alt="Person exercising with renewed energy"
-            className="rounded-lg object-cover h-48 md:h-64 w-full shadow-lg"
+            alt="Active lifestyle with renewed energy"
+            className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
         </div>
       ),
@@ -138,23 +157,23 @@ function App() {
       title: "Body Composition",
       content: (
         <div className="space-y-6">
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Achieve sustainable changes in body composition through medical-grade interventions and personalized nutrition strategies.
+          <p className="text-slate-300 text-lg leading-relaxed">
+            Achieve sustainable changes in body composition through medical-grade interventions and personalized nutrition strategies tailored to your biology.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
               <h4 className="font-semibold text-white mb-2">Weight gain and stubborn fat</h4>
-              <p className="text-gray-400 text-sm">Medical weight management with proven protocols</p>
+              <p className="text-slate-400 text-sm">Medical weight management with evidence-based protocols customized to your metabolism</p>
             </div>
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
               <h4 className="font-semibold text-white mb-2">Loss of muscle or strength</h4>
-              <p className="text-gray-400 text-sm">Hormone optimization to preserve and build lean muscle mass</p>
+              <p className="text-slate-400 text-sm">Hormone optimization to preserve and rebuild lean muscle mass as you age</p>
             </div>
           </div>
-          <img 
+          <img
             src="https://images.pexels.com/photos/6975474/pexels-photo-6975474.jpeg?auto=compress&cs=tinysrgb&w=800"
-            alt="Body composition measurement and analysis"
-            className="rounded-lg object-cover h-48 md:h-64 w-full shadow-lg"
+            alt="Body composition and fitness results"
+            className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
         </div>
       ),
@@ -163,23 +182,23 @@ function App() {
       title: "Sleep & Recovery",
       content: (
         <div className="space-y-6">
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Optimize your sleep quality and recovery processes for better overall health and performance.
+          <p className="text-slate-300 text-lg leading-relaxed">
+            Optimize your sleep architecture and recovery processes for better overall health, performance, and long-term resilience.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
-              <h4 className="font-semibold text-white mb-2">Sleep issues</h4>
-              <p className="text-gray-400 text-sm">Comprehensive sleep optimization through hormone balance</p>
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-white mb-2">Poor sleep quality</h4>
+              <p className="text-slate-400 text-sm">Comprehensive sleep optimization through hormone balance and evidence-based protocols</p>
             </div>
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
               <h4 className="font-semibold text-white mb-2">Slow recovery from training</h4>
-              <p className="text-gray-400 text-sm">Advanced peptide therapy to accelerate recovery</p>
+              <p className="text-slate-400 text-sm">Advanced cellular therapy to accelerate muscle repair and physical recovery</p>
             </div>
           </div>
-          <img 
+          <img
             src="https://images.pexels.com/photos/3771069/pexels-photo-3771069.jpeg?auto=compress&cs=tinysrgb&w=800"
-            alt="Peaceful sleep and recovery"
-            className="rounded-lg object-cover h-48 md:h-64 w-full shadow-lg"
+            alt="Restorative sleep and recovery"
+            className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
         </div>
       ),
@@ -188,23 +207,23 @@ function App() {
       title: "Hormonal Health",
       content: (
         <div className="space-y-6">
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Address hormonal imbalances that affect mood, energy, and overall quality of life through evidence-based treatments.
+          <p className="text-slate-300 text-lg leading-relaxed">
+            Address hormonal imbalances that affect mood, energy, and quality of life through evidence-based, personalized treatment approaches.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
-              <h4 className="font-semibold text-white mb-2">Perimenopause/<br />menopause</h4>
-              <p className="text-gray-400 text-sm">Comprehensive hormone replacement therapy options</p>
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-white mb-2">Perimenopause & menopause</h4>
+              <p className="text-slate-400 text-sm">Comprehensive hormone replacement therapy options tailored to your symptoms and goals</p>
             </div>
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
-              <h4 className="font-semibold text-white mb-2">Andropause/low testosterone</h4>
-              <p className="text-gray-400 text-sm">Testosterone optimization for men's health</p>
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-white mb-2">Andropause & low testosterone</h4>
+              <p className="text-slate-400 text-sm">Testosterone optimization protocols to restore men's energy, drive, and vitality</p>
             </div>
           </div>
-          <img 
+          <img
             src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=800"
-            alt="Medical consultation and hormone therapy discussion"
-            className="rounded-lg object-cover object-top h-48 md:h-64 w-full shadow-lg"
+            alt="Medical consultation and hormone therapy"
+            className="rounded-xl object-cover object-top h-48 md:h-64 w-full shadow-lg"
           />
         </div>
       ),
@@ -213,22 +232,27 @@ function App() {
       title: "Metabolic Wellness",
       content: (
         <div className="space-y-6">
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Optimize your metabolic health for long-term wellness and disease prevention through personalized interventions.
+          <p className="text-slate-300 text-lg leading-relaxed">
+            Optimize your metabolic health for long-term wellness and disease prevention through personalized, data-driven interventions.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
               <h4 className="font-semibold text-white mb-2">Metabolic health concerns</h4>
-              <p className="text-gray-400 text-sm">Comprehensive metabolic panel analysis and optimization</p>
+              <p className="text-slate-400 text-sm">Comprehensive metabolic panel analysis and targeted optimization strategies</p>
             </div>
-            <div className="bg-black border border-gold-600 p-6 rounded-xl shadow-md">
+            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
               <h4 className="font-semibold text-white mb-2">Mood swings and irritability</h4>
-              <p className="text-gray-400 text-sm">Hormone balance to stabilize mood and emotional well-being</p>
+              <p className="text-slate-400 text-sm">Hormone balance protocols to stabilize mood and support emotional well-being</p>
             </div>
           </div>
           <div className="text-center mt-8">
-            <a href="https://api.leadconnectorhq.com/widget/booking/Hw7spaCC9MJ1nx2CftQh" target="_blank" rel="noopener noreferrer" className="inline-block bg-gold-600 hover:bg-gold-700 text-black px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
-              See If We're a Fit
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all hover:scale-105 shadow-lg shadow-brand-900/40"
+            >
+              See If We're a Fit <ChevronRight size={20} />
             </a>
           </div>
         </div>
@@ -237,71 +261,97 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Top Header */}
-      <div className="bg-black text-white py-3 px-4">
+    <div className="min-h-screen bg-silver-100">
+
+      {/* Top contact bar */}
+      <div className="bg-navy-950 text-white py-2.5 px-4 border-b border-brand-800">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
-          <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-2">
-              <Phone size={16} />
-              <a href="tel:720-915-5508" className="hover:text-gold-400 transition-colors">720-915-5508</a>
-            </div>
-            <div className="hidden sm:flex items-center space-x-2">
-              <MapPin size={16} />
-              <a href="https://maps.google.com/?q=8770+E+Arapahoe+Road+%23202,+Centennial,+CO+80112" target="_blank" rel="noopener noreferrer" className="hover:text-gold-400 transition-colors">8770 E Arapahoe Road #202, Centennial, CO 80112</a>
-            </div>
+          <div className="flex items-center gap-6">
+            <a href="tel:+14805639966" className="flex items-center gap-1.5 hover:text-brand-300 transition-colors">
+              <Phone size={14} />
+              <span>+1 480-563-9966</span>
+            </a>
+            <a
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-1.5 hover:text-brand-300 transition-colors"
+            >
+              <MapPin size={14} />
+              <span>15454 N Frank Lloyd Wright Blvd, Suite 23, Scottsdale, AZ</span>
+            </a>
           </div>
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <Mail size={16} />
-              <a href="mailto:info@vitalflamewellness.com" className="hidden sm:inline hover:text-gold-400 transition-colors">info@vitalflamewellness.com</a>
-            </div>
+          <div className="flex items-center gap-4">
+            <a
+              href={PORTAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-1.5 text-brand-300 hover:text-brand-200 transition-colors font-medium"
+            >
+              Patient Portal →
+            </a>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="bg-black shadow-md sticky top-0 z-50 border-b border-gold-600">
+      <nav className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-navy-950/98 shadow-xl shadow-navy-950/50' : 'bg-navy-950'} border-b border-brand-800/60`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className="flex items-center space-x-4">
-              <img 
-                src="https://github.com/Bigfootage/Visual-Material/blob/main/vitalflame_logo_no_text.png?raw=true"
-                alt="Vital Flame Wellness Logo"
-                className="h-14 w-auto"
+            <div className="flex items-center gap-4">
+              <img
+                src="/Vitality_Color.png"
+                alt="Vitality at Focal Point"
+                className="h-12 w-auto"
               />
-              <div className="text-left">
-                <div className="text-2xl font-bold leading-tight">
-                  <span className="text-white">VITAL FLAME </span>
-                  <span className="text-gold-500">WELLNESS</span>
-                </div>
-                <div className="hidden sm:block text-xs text-gray-300 uppercase tracking-wider mt-1">
-                  INTEGRATIVE AND FUNCTIONAL MEDICINE
-                </div>
-              </div>
             </div>
 
-            <div>
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-white hover:text-gold-500"
+            {/* Desktop Nav */}
+            <div className="hidden lg:flex items-center gap-8">
+              <a href="#services" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Services</a>
+              <a href="#method" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Method</a>
+              <a href="#testimonials" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Testimonials</a>
+              <a href="#team" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Team</a>
+              <a href="#faq" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">FAQ</a>
+              <a href="#contact" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Contact</a>
+              <a
+                href={PORTAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-lg font-semibold transition-all text-sm hover:scale-105"
               >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
+                Patient Portal
+              </a>
             </div>
+
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden text-white hover:text-brand-300 transition-colors"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="bg-black border-t border-gold-600 py-4">
-              <div className="flex flex-col space-y-4">
-                <a href="#services" className="text-white hover:text-gold-500 font-medium px-4">Services</a>
-                <a href="#method" className="text-white hover:text-gold-500 font-medium px-4">Method</a>
-                <a href="#testimonials" className="text-white hover:text-gold-500 font-medium px-4">Testimonials</a>
-                <a href="#team" className="text-white hover:text-gold-500 font-medium px-4">Meet the Team</a>
-                <a href="#faq" className="text-white hover:text-gold-500 font-medium px-4">FAQ</a>
-                <a href="#contact" className="text-white hover:text-gold-500 font-medium px-4">Contact</a>
-                <a href="https://secure.gethealthie.com/users/sign_in" target="_blank" rel="noopener noreferrer" className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium mx-4 transition-colors text-center">
+            <div className="lg:hidden border-t border-brand-800/50 py-4">
+              <div className="flex flex-col gap-1">
+                {['Services', 'Method', 'Testimonials', 'Team', 'FAQ', 'Contact'].map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-silver-300 hover:text-brand-300 hover:bg-navy-800 font-medium px-4 py-3 rounded-lg transition-colors"
+                  >
+                    {item}
+                  </a>
+                ))}
+                <a
+                  href={PORTAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-brand-500 hover:bg-brand-600 text-white px-4 py-3 rounded-lg font-semibold transition-colors text-center mt-2"
+                >
                   Patient Portal
                 </a>
               </div>
@@ -311,611 +361,658 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-black to-slate-900 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section className="relative bg-navy-950 overflow-hidden min-h-[92vh] flex items-center">
+        {/* Background grid pattern inspired by brandmark */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `radial-gradient(circle, #1C7AC2 1px, transparent 1px)`,
+              backgroundSize: '48px 48px',
+            }}
+          />
+        </div>
+        {/* Gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/95 to-navy-800/60" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-silver-100 to-transparent" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
-                Feel Younger,<br />
-                Stronger, and<br />
-                <span className="text-gold-500">Healthier</span><br />
-                at Any Age
+              <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-2 text-brand-300 text-sm font-medium">
+                <div className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
+                Precision Medicine — Scottsdale, AZ
+              </div>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] tracking-tight">
+                Reclaim Your<br />
+                Peak <span className="text-brand-400">Vitality</span>
               </h1>
-              <p className="text-xl text-gray-300 leading-relaxed">
-                World-class hormone care, advanced cellular protocols, and personalized nutrition—designed around your labs, your goals, and your life.
+              <p className="text-xl text-slate-300 leading-relaxed max-w-xl">
+                Advanced hormone optimization, cellular therapy, and medical weight management — precision protocols engineered around your biology.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="https://api.leadconnectorhq.com/widget/booking/Hw7spaCC9MJ1nx2CftQh" target="_blank" rel="noopener noreferrer" className="bg-gold-600 hover:bg-gold-700 text-black px-8 py-4 rounded-lg text-lg font-semibold transition-colors text-center">
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                <a
+                  href={BOOKING_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-brand-500 hover:bg-brand-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all hover:scale-105 text-center shadow-lg shadow-brand-900/50"
+                >
                   Book Your Consultation
                 </a>
-                <a href="https://app.vitalflamewellness.com/hormone-health-assessment" target="_blank" rel="noopener noreferrer" className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors text-center">
-                  Take the 60-second Assessment
+                <a
+                  href={ASSESSMENT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-silver-400/40 hover:border-brand-400 hover:bg-brand-500/10 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all text-center"
+                >
+                  Take the Free Assessment
                 </a>
               </div>
-              <div className="pt-4 text-sm text-gray-400 space-y-1">
-                <p>✓ Medical practice in Centennial, CO</p>
-                <p>✓ Evidence-based, personalized care</p>
-                <p>✓ Secure patient portal</p>
+              <div className="pt-2 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
+                <div>
+                  <div className="text-3xl font-bold text-brand-400">1,000+</div>
+                  <div className="text-sm text-slate-400 mt-1">Patients Served</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-brand-400">4.9</div>
+                  <div className="text-sm text-slate-400 mt-1">Star Rating</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-brand-400">100%</div>
+                  <div className="text-sm text-slate-400 mt-1">Personalized Care</div>
+                </div>
               </div>
             </div>
-            <div className="relative">
-              <img 
-                src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Medical Professional providing hormone therapy consultation"
-                className="rounded-2xl shadow-2xl w-full h-[600px] object-cover"
+            <div className="relative hidden lg:block">
+              <div className="absolute -inset-4 bg-brand-500/10 rounded-3xl blur-2xl" />
+              <img
+                src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=900"
+                alt="Medical professional consultation"
+                className="relative rounded-2xl shadow-2xl w-full h-[620px] object-cover border border-brand-500/20"
               />
+              {/* Floating badge */}
+              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3">
+                <div className="bg-brand-500 rounded-xl p-2.5">
+                  <Shield className="text-white" size={22} />
+                </div>
+                <div>
+                  <div className="font-bold text-navy-900 text-sm">HIPAA Compliant</div>
+                  <div className="text-slate-500 text-xs">Board Certified Provider</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Social Proof Ribbon */}
-      <section className="bg-black py-8 border-b border-gold-600">
+      {/* Trust Ribbon */}
+      <section className="bg-white py-6 border-b border-silver-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile Layout */}
-          <div className="grid grid-cols-2 gap-4 md:hidden">
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <Shield className="text-gold-500" size={24} />
-                <span className="text-white font-medium text-sm">HIPAA Compliant</span>
-              </div>
+          <div className="flex flex-wrap justify-center md:justify-between items-center gap-6">
+            <div className="flex items-center gap-2.5">
+              <Shield className="text-brand-500" size={22} />
+              <span className="text-navy-800 font-semibold text-sm">HIPAA Compliant</span>
             </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <Users className="text-gold-500" size={24} />
-                <span className="text-white font-medium text-sm">1000+ Patients</span>
-              </div>
+            <div className="w-px h-5 bg-silver-300 hidden md:block" />
+            <div className="flex items-center gap-2.5">
+              <Users className="text-brand-500" size={22} />
+              <span className="text-navy-800 font-semibold text-sm">1,000+ Patients Served</span>
             </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <div className="flex space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-gold-500 text-gold-500" />
-                  ))}
-                </div>
-                <span className="text-white font-medium text-sm">4.9/5 Rating</span>
+            <div className="w-px h-5 bg-silver-300 hidden md:block" />
+            <div className="flex items-center gap-2.5">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-brand-500 text-brand-500" />
+                ))}
               </div>
+              <span className="text-navy-800 font-semibold text-sm">4.9 / 5 Rating</span>
             </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <Award className="text-gold-500" size={24} />
-                <span className="text-white font-medium text-sm">Board Certified</span>
-              </div>
+            <div className="w-px h-5 bg-silver-300 hidden md:block" />
+            <div className="flex items-center gap-2.5">
+              <Award className="text-brand-500" size={22} />
+              <span className="text-navy-800 font-semibold text-sm">Board Certified</span>
             </div>
-          </div>
-          
-          {/* Desktop Layout */}
-          <div className="hidden md:flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-8">
-              <div className="flex items-center space-x-2">
-                <Shield className="text-gold-500" size={24} />
-                <span className="text-white font-medium">HIPAA Compliant</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Users className="text-gold-500" size={24} />
-                <span className="text-white font-medium">1000+ Patients Served</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="flex space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-gold-500 text-gold-500" />
-                  ))}
-                </div>
-                <span className="text-white font-medium">4.9/5 Rating</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Award className="text-gold-500" size={24} />
-                <span className="text-white font-medium">Board Certified</span>
-              </div>
+            <div className="w-px h-5 bg-silver-300 hidden md:block" />
+            <div className="flex items-center gap-2.5">
+              <MapPin className="text-brand-500" size={22} />
+              <span className="text-navy-800 font-semibold text-sm">Scottsdale, AZ</span>
             </div>
-            <p className="text-gray-400 text-center md:text-right">
-              Thousands of successful appointments and personalized plans delivered.
-            </p>
-          </div>
-          
-          {/* Mobile Description */}
-          <div className="md:hidden mt-4">
-            <p className="text-gray-400 text-center text-sm">
-              Thousands of successful appointments and personalized plans delivered.
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section id="services" className="py-20 bg-slate-900">
+      {/* Services Section */}
+      <section id="services" className="py-24 bg-silver-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Our Medical Wellness <span className="text-gold-500">Services</span>
+          <AnimatedSection className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-brand-600 text-sm font-medium mb-4">
+              Our Programs
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-5">
+              Precision Medical <span className="text-brand-500">Wellness</span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Explore targeted programs that address the root cause of symptoms and support sustainable change.
+            <p className="text-xl text-slate-500 max-w-3xl mx-auto">
+              Evidence-based programs designed to address root causes — not just symptoms — for results that last.
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Service 1 - Hormone Management */}
-            <div className="relative min-h-[28rem]">
-              <div className="relative h-full rounded-2xl border-[0.75px] border-gold-600 p-2">
-                <GlowingEffect
-                  spread={40}
-                  glow={true}
-                  disabled={false}
-                  proximity={64}
-                  inactiveZone={0.01}
-                  borderWidth={3}
-                />
-                <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] bg-black p-8 shadow-lg">
-                  <div className="flex items-center mb-6">
-                    <div className="bg-gold-600 p-3 rounded-lg mr-4">
-                      <Activity className="text-black" size={32} />
+            {/* Service 1 */}
+            <AnimatedSection delay={0}>
+              <div className="relative min-h-[26rem] h-full">
+                <div className="relative h-full rounded-2xl border-[0.75px] border-brand-500/50 p-2">
+                  <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
+                  <div className="relative flex h-full flex-col gap-6 overflow-hidden rounded-xl bg-white border border-silver-200 p-8 shadow-lg">
+                    <div className="flex items-start gap-4">
+                      <div className="bg-brand-500 p-3 rounded-xl shrink-0">
+                        <Activity className="text-white" size={28} />
+                      </div>
+                      <h3 className="text-2xl font-bold text-navy-900 leading-tight">Hormone Management & Optimization</h3>
                     </div>
-                    <h3 className="text-2xl font-bold text-white">Hormone Management & Optimization</h3>
+                    <p className="text-slate-500 leading-relaxed">
+                      Comprehensive evaluation of sex hormones, thyroid, and related markers. Personalized protocols to improve energy, mood, sleep, body composition, and performance.
+                    </p>
+                    <ul className="space-y-3">
+                      {['Advanced lab testing and interpretation', 'Tailored treatment plans with ongoing monitoring', 'Education on lifestyle factors that amplify results'].map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <div className="bg-brand-50 rounded-full p-0.5 mt-0.5 shrink-0">
+                            <Check className="text-brand-500" size={16} />
+                          </div>
+                          <span className="text-slate-600 text-sm">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    Comprehensive evaluation of sex hormones, thyroid, and related markers. Personalized protocols to improve energy, mood, sleep, body composition, and performance.
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Advanced lab testing and interpretation</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Tailored treatment plans with ongoing monitoring</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Education on lifestyle factors that amplify results</span>
-                    </li>
-                  </ul>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
 
-            {/* Service 2 - Peptide Therapy */}
-            <div className="relative min-h-[28rem]">
-              <div className="relative h-full rounded-2xl border-[0.75px] border-gold-600 p-2">
-                <GlowingEffect
-                  spread={40}
-                  glow={true}
-                  disabled={false}
-                  proximity={64}
-                  inactiveZone={0.01}
-                  borderWidth={3}
-                />
-                <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] bg-black p-8 shadow-lg">
-                  <div className="flex items-center mb-6">
-                    <div className="bg-red-600 p-3 rounded-lg mr-4">
-                      <Zap className="text-white" size={32} />
+            {/* Service 2 */}
+            <AnimatedSection delay={100}>
+              <div className="relative min-h-[26rem] h-full">
+                <div className="relative h-full rounded-2xl border-[0.75px] border-brand-500/50 p-2">
+                  <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
+                  <div className="relative flex h-full flex-col gap-6 overflow-hidden rounded-xl bg-white border border-silver-200 p-8 shadow-lg">
+                    <div className="flex items-start gap-4">
+                      <div className="bg-navy-800 p-3 rounded-xl shrink-0">
+                        <Zap className="text-brand-300" size={28} />
+                      </div>
+                      <h3 className="text-2xl font-bold text-navy-900 leading-tight">Advanced Cellular Therapy</h3>
                     </div>
-                    <h3 className="text-2xl font-bold text-white">Advanced Cellular Therapy</h3>
+                    <p className="text-slate-500 leading-relaxed">
+                      Targeted peptides to support muscle repair, fat loss, recovery, cognition, and healthy aging — selected by clinicians based on your goals and health history.
+                    </p>
+                    <ul className="space-y-3">
+                      {['Evidence-informed peptide protocols', 'Clear directions for use and follow-up', 'Safety screening and provider oversight'].map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <div className="bg-brand-50 rounded-full p-0.5 mt-0.5 shrink-0">
+                            <Check className="text-brand-500" size={16} />
+                          </div>
+                          <span className="text-slate-600 text-sm">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    Targeted peptides to support muscle repair, fat loss, recovery, cognition, and healthy aging—selected by clinicians based on your goals and history.
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Evidence-informed protocols</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Clear directions for use and follow-up</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Safety screening and provider oversight</span>
-                    </li>
-                  </ul>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
 
-            {/* Service 3 - Medical Weight Management */}
-            <div className="relative min-h-[28rem]">
-              <div className="relative h-full rounded-2xl border-[0.75px] border-gold-600 p-2">
-                <GlowingEffect
-                  spread={40}
-                  glow={true}
-                  disabled={false}
-                  proximity={64}
-                  inactiveZone={0.01}
-                  borderWidth={3}
-                />
-                <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] bg-black p-8 shadow-lg">
-                  <div className="flex items-center mb-6">
-                    <div className="bg-gold-600 p-3 rounded-lg mr-4">
-                      <Target className="text-black" size={32} />
+            {/* Service 3 */}
+            <AnimatedSection delay={200}>
+              <div className="relative min-h-[26rem] h-full">
+                <div className="relative h-full rounded-2xl border-[0.75px] border-brand-500/50 p-2">
+                  <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
+                  <div className="relative flex h-full flex-col gap-6 overflow-hidden rounded-xl bg-white border border-silver-200 p-8 shadow-lg">
+                    <div className="flex items-start gap-4">
+                      <div className="bg-brand-500 p-3 rounded-xl shrink-0">
+                        <Target className="text-white" size={28} />
+                      </div>
+                      <h3 className="text-2xl font-bold text-navy-900 leading-tight">Medical Weight-Management</h3>
                     </div>
-                    <h3 className="text-2xl font-bold text-white">Medical Weight-Management</h3>
+                    <p className="text-slate-500 leading-relaxed">
+                      Structured, physician-supervised approach combining medication when appropriate, nutrition planning, and accountability to reduce body fat while preserving lean mass.
+                    </p>
+                    <ul className="space-y-3">
+                      {['Individualized nutrition and activity guidance', 'Progress tracking with body composition analysis', 'Metabolic markers monitored over time'].map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <div className="bg-brand-50 rounded-full p-0.5 mt-0.5 shrink-0">
+                            <Check className="text-brand-500" size={16} />
+                          </div>
+                          <span className="text-slate-600 text-sm">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    Structured, physician-supervised approach combining medication when appropriate, nutrition planning, and accountability to reduce body fat while preserving lean mass.
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Individualized nutrition and activity guidance</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Progress tracking with body composition</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Metabolic markers monitored over time</span>
-                    </li>
-                  </ul>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
 
-            {/* Service 4 - Nutrition Programs */}
-            <div className="relative min-h-[28rem]">
-              <div className="relative h-full rounded-2xl border-[0.75px] border-gold-600 p-2">
-                <GlowingEffect
-                  spread={40}
-                  glow={true}
-                  disabled={false}
-                  proximity={64}
-                  inactiveZone={0.01}
-                  borderWidth={3}
-                />
-                <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] bg-black p-8 shadow-lg">
-                  <div className="flex items-center mb-6">
-                    <div className="bg-red-600 p-3 rounded-lg mr-4">
-                      <Heart className="text-white" size={32} />
+            {/* Service 4 */}
+            <AnimatedSection delay={300}>
+              <div className="relative min-h-[26rem] h-full">
+                <div className="relative h-full rounded-2xl border-[0.75px] border-brand-500/50 p-2">
+                  <GlowingEffect spread={40} glow={true} disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
+                  <div className="relative flex h-full flex-col gap-6 overflow-hidden rounded-xl bg-white border border-silver-200 p-8 shadow-lg">
+                    <div className="flex items-start gap-4">
+                      <div className="bg-navy-800 p-3 rounded-xl shrink-0">
+                        <Heart className="text-brand-300" size={28} />
+                      </div>
+                      <h3 className="text-2xl font-bold text-navy-900 leading-tight">Nutrition Programs</h3>
                     </div>
-                    <h3 className="text-2xl font-bold text-white">Nutrition Programs</h3>
+                    <p className="text-slate-500 leading-relaxed">
+                      All treatments and therapies are accompanied by a comprehensive nutrition plan tailored to your labs, preferences, and schedule — ensuring optimal results from every protocol.
+                    </p>
+                    <ul className="space-y-3">
+                      {['Integrated with all treatment protocols', 'Customized meal plans and practical guidance', 'Real-world strategies that fit your lifestyle'].map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <div className="bg-brand-50 rounded-full p-0.5 mt-0.5 shrink-0">
+                            <Check className="text-brand-500" size={16} />
+                          </div>
+                          <span className="text-slate-600 text-sm">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    All treatments and therapies are accompanied by a comprehensive nutrition plan tailored to your labs, preferences, and schedule—ensuring optimal results from your wellness journey.
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Integrated with all treatment protocols</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Customized meal plans and guidance</span>
-                    </li>
-                    <li className="flex items-center space-x-3">
-                      <Check className="text-gold-500" size={20} />
-                      <span className="text-gray-300">Real-world strategies that fit your lifestyle</span>
-                    </li>
-                  </ul>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
 
-      {/* Methodology Section - Bio-Synergistics™ */}
-      <section id="method" className="py-20 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              How Our Method <span className="text-gold-500">Works</span>
+      {/* Method Section */}
+      <section id="method" className="py-24 bg-navy-950 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `radial-gradient(circle, #1C7AC2 1px, transparent 1px)`,
+              backgroundSize: '56px 56px',
+            }}
+          />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 rounded-full px-4 py-1.5 text-brand-300 text-sm font-medium mb-4">
+              Our Approach
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
+              The Focal Point <span className="text-brand-400">Protocol</span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-4">
-              Our Bio-Synergistics™ approach combines advanced diagnostics with personalized protocols for lasting results.
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+              A precision-first methodology — combining advanced diagnostics with personalized care to deliver results that are built to last.
             </p>
-          </div>
+          </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {/* Step 1 */}
-            <div className="text-center">
-              <div className="bg-gold-600 text-black rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl mx-auto mb-6">
-                1
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">Medical Consultation</h3>
-              <p className="text-gray-300">
-                Meet your provider, discuss symptoms and goals, and map your lab plan.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="text-center">
-              <div className="bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl mx-auto mb-6">
-                2
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">Deep-Dive Analysis</h3>
-              <p className="text-gray-300">
-                Comprehensive labs and body composition to identify root drivers.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="text-center">
-              <div className="bg-gold-600 text-black rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl mx-auto mb-6">
-                3
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">Personalized Plan</h3>
-              <p className="text-gray-300">
-                Clear protocol across hormones, peptides, nutrition, and lifestyle.
-              </p>
-            </div>
-
-            {/* Step 4 */}
-            <div className="text-center">
-              <div className="bg-red-600 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl mx-auto mb-6">
-                4
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">Ongoing Optimization</h3>
-              <p className="text-gray-300">
-                Regular check-ins, adjustments, and education to maintain results.
-              </p>
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {[
+              { step: 1, title: "Medical Consultation", desc: "Meet your provider, discuss symptoms and goals, and map your comprehensive lab plan." },
+              { step: 2, title: "Deep-Dive Analysis", desc: "Advanced labs and body composition data to identify the root drivers of your symptoms." },
+              { step: 3, title: "Personalized Protocol", desc: "A clear, individualized plan spanning hormones, peptides, nutrition, and lifestyle." },
+              { step: 4, title: "Ongoing Optimization", desc: "Regular check-ins, data-driven adjustments, and education to sustain your results." },
+            ].map(({ step, title, desc }, i) => (
+              <AnimatedSection key={step} delay={i * 120}>
+                <div className="relative bg-navy-800 border border-brand-500/20 rounded-2xl p-8 text-center hover:border-brand-400/40 transition-all hover:-translate-y-1 group">
+                  <div className="relative mx-auto mb-6 w-16 h-16">
+                    <div className="absolute inset-0 bg-brand-500/20 rounded-full blur-md group-hover:bg-brand-500/30 transition-colors" />
+                    <div className="relative bg-brand-500 text-white rounded-full w-16 h-16 flex items-center justify-center font-bold text-2xl shadow-lg">
+                      {step}
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-3">{title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
 
           <div className="text-center">
-            <a href="https://api.leadconnectorhq.com/widget/booking/Hw7spaCC9MJ1nx2CftQh" target="_blank" rel="noopener noreferrer" className="inline-block bg-gold-600 hover:bg-gold-700 text-black px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
-              Book Your Consultation
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-10 py-4 rounded-lg text-lg font-semibold transition-all hover:scale-105 shadow-lg shadow-brand-900/50"
+            >
+              Start Your Journey <ChevronRight size={20} />
             </a>
           </div>
         </div>
       </section>
 
-      {/* Conditions We Help */}
+      {/* Conditions Timeline */}
       <Timeline data={conditionsData} />
 
       {/* Testimonials */}
       <TestimonialsSection
         title="Real Patients. Real Results."
-        description="See how our patients have transformed their health and vitality with our personalized approach to wellness."
+        description="Hear from patients in Scottsdale who have transformed their health with our precision wellness approach."
         testimonials={marqueeTestimonials}
-        className="bg-black"
         highlightWord="Results"
       />
 
       {/* Meet the Team */}
-      <section id="team" className="py-20 bg-black">
+      <section id="team" className="py-24 bg-silver-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Your Medical <span className="text-gold-500">Provider</span>
+          <AnimatedSection className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-brand-600 text-sm font-medium mb-4">
+              Your Care Team
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-5">
+              Your Medical <span className="text-brand-500">Provider</span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Board-certified medical provider dedicated to your health optimization journey.
+            <p className="text-xl text-slate-500 max-w-3xl mx-auto">
+              Board-certified expertise combined with a deeply personalized approach to your health journey.
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="flex justify-center">
-            <div className="bg-slate-900 border border-gold-600 rounded-2xl p-8 text-center shadow-lg max-w-md">
-              <img 
-                src="https://github.com/Bigfootage/Visual-Material/blob/main/headshot.JPG?raw=true"
-                alt="Sheena Meyer, FNP-C"
-                className="w-40 h-40 rounded-full mx-auto mb-6 object-cover"
-              />
-              <h3 className="text-2xl font-semibold text-white mb-2">Sheena Meyer, FNP-C</h3>
-              <p className="text-gold-500 font-medium mb-4">Family Nurse Practitioner</p>
-              <p className="text-gray-300">Specialized in hormone optimization, cellular therapy, and personalized wellness protocols to help you achieve optimal health and vitality.</p>
-            </div>
+            <AnimatedSection>
+              <div className="bg-white border border-silver-300 rounded-2xl p-10 text-center shadow-xl max-w-md hover:shadow-2xl transition-shadow hover:-translate-y-1 transition-all duration-300">
+                <div className="relative inline-block mb-6">
+                  <div className="absolute inset-0 bg-brand-200 rounded-full blur-lg opacity-40" />
+                  <img
+                    src="https://github.com/Bigfootage/Visual-Material/blob/main/headshot.JPG?raw=true"
+                    alt="Sheena Meyer, FNP-C"
+                    className="relative w-40 h-40 rounded-full object-cover border-4 border-brand-100 shadow-lg"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold text-navy-900 mb-1">Sheena Meyer, FNP-C</h3>
+                <p className="text-brand-500 font-semibold mb-4 text-sm uppercase tracking-wide">Family Nurse Practitioner</p>
+                <div className="w-12 h-0.5 bg-brand-200 mx-auto mb-4" />
+                <p className="text-slate-500 leading-relaxed text-sm">
+                  Specialized in hormone optimization, advanced cellular therapy, and personalized wellness protocols — helping patients achieve and sustain optimal health and vitality.
+                </p>
+              </div>
+            </AnimatedSection>
           </div>
-
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="py-20 bg-slate-900">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Frequently Asked <span className="text-gold-500">Questions</span>
+      {/* FAQ */}
+      <section id="faq" className="py-24 bg-navy-950 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `radial-gradient(circle, #1C7AC2 1px, transparent 1px)`,
+              backgroundSize: '56px 56px',
+            }}
+          />
+        </div>
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 rounded-full px-4 py-1.5 text-brand-300 text-sm font-medium mb-4">
+              Questions & Answers
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
+              Frequently Asked <span className="text-brand-400">Questions</span>
             </h2>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl text-slate-400">
               Clear answers to help you understand our approach and what to expect.
             </p>
+          </AnimatedSection>
+
+          <div className="space-y-5">
+            {[
+              {
+                q: "How soon can I expect results?",
+                a: "Many patients notice meaningful changes within the first few weeks. Sustainable improvements build across regular follow-ups over 3–6 months. Timeline varies based on individual factors, the specific protocols used, and how closely patients follow recommendations."
+              },
+              {
+                q: "Do you require labs before starting?",
+                a: "Yes. Objective lab data is the foundation of everything we do — it allows us to build safe, effective, and truly personalized plans. We review results with you in plain language so you understand exactly what your body needs."
+              },
+              {
+                q: "Is Cellular (Peptide) Therapy right for everyone?",
+                a: "Not necessarily. Safety and suitability depend on your individual health history and goals. Your provider will conduct a thorough evaluation during consultation and advise on whether peptide therapy is appropriate for your situation."
+              },
+              {
+                q: "Do you offer virtual appointments?",
+                a: "Yes. We offer both in-clinic appointments at our Scottsdale location and telehealth options when clinically appropriate. Our team will guide you on the best format for your specific care needs."
+              },
+            ].map(({ q, a }, i) => (
+              <AnimatedSection key={i} delay={i * 80}>
+                <div className="bg-navy-800 border border-brand-500/20 rounded-xl p-7 hover:border-brand-400/40 transition-colors">
+                  <h3 className="text-lg font-bold text-white mb-3 flex items-start gap-3">
+                    <span className="text-brand-400 font-bold shrink-0">Q.</span>
+                    {q}
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed pl-6">{a}</p>
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
-
-          <div className="space-y-6 mb-12">
-            <div className="bg-black border border-gold-600 rounded-xl p-6 shadow-md">
-              <h3 className="text-xl font-bold text-white mb-3">How soon can I expect results?</h3>
-              <p className="text-gray-300">
-                Many patients notice changes within weeks; sustainable improvements build across regular follow-ups. Timeline varies based on individual factors and treatment protocols.
-              </p>
-            </div>
-
-            <div className="bg-black border border-gold-600 rounded-xl p-6 shadow-md">
-              <h3 className="text-xl font-bold text-white mb-3">Do you require labs?</h3>
-              <p className="text-gray-300">
-                Yes. Objective data guides safe, effective plans; we review labs with you in plain language to ensure you understand your results and treatment approach.
-              </p>
-            </div>
-
-            <div className="bg-black border border-gold-600 rounded-xl p-6 shadow-md">
-              <h3 className="text-xl font-bold text-white mb-3">Is Cellular Therapy right for everyone?</h3>
-              <p className="text-gray-300">
-                Safety and suitability depend on your health history and goals; your provider will advise during consultation based on comprehensive evaluation.
-              </p>
-            </div>
-
-            <div className="bg-black border border-gold-600 rounded-xl p-6 shadow-md">
-              <h3 className="text-xl font-bold text-white mb-3">Do you offer virtual appointments?</h3>
-              <p className="text-gray-300">
-                Yes. We support in-clinic and telehealth options when appropriate, providing flexibility while maintaining quality care standards.
-              </p>
-            </div>
-          </div>
-
         </div>
       </section>
 
-      {/* Contact & Location */}
-      <section id="contact" className="py-20 bg-black">
+      {/* Contact Section */}
+      <section id="contact" className="py-24 bg-silver-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Contact Vital Flame <span className="text-gold-500">Wellness</span>
+          <AnimatedSection className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-brand-600 text-sm font-medium mb-4">
+              Get in Touch
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-5">
+              Visit Us in <span className="text-brand-500">Scottsdale</span>
             </h2>
-            <p className="text-xl text-gray-300">
-              Ready to start your journey to better health? Get in touch with our team.
+            <p className="text-xl text-slate-500">
+              Ready to start your precision wellness journey? We're here to help.
             </p>
-          </div>
+          </AnimatedSection>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div className="bg-slate-900 border border-gold-600 rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-white mb-6">Get in Touch</h3>
-                
+          <div className="grid lg:grid-cols-2 gap-10">
+            {/* Contact Info */}
+            <AnimatedSection>
+              <div className="bg-white border border-silver-300 rounded-2xl p-8 shadow-lg h-full">
+                <h3 className="text-2xl font-bold text-navy-900 mb-8">Contact Information</h3>
+
                 <div className="space-y-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="bg-gold-600 p-3 rounded-lg">
-                      <Phone className="text-black" size={24} />
+                  <div className="flex items-center gap-4">
+                    <div className="bg-brand-500 p-3 rounded-xl shrink-0">
+                      <Phone className="text-white" size={22} />
                     </div>
                     <div>
-                      <p className="font-semibold text-white">Phone</p>
-                      <a href="tel:720-915-5508" className="text-gray-300 hover:text-gold-500 transition-colors">720-915-5508</a>
+                      <p className="text-xs uppercase tracking-wide text-slate-400 font-medium mb-0.5">Phone</p>
+                      <a href="tel:+14805639966" className="text-navy-800 font-semibold hover:text-brand-500 transition-colors">+1 480-563-9966</a>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4">
-                    <div className="bg-red-600 p-3 rounded-lg">
-                      <Mail className="text-white" size={24} />
+                  <div className="flex items-center gap-4">
+                    <div className="bg-navy-800 p-3 rounded-xl shrink-0">
+                      <Mail className="text-brand-300" size={22} />
                     </div>
                     <div>
-                      <p className="font-semibold text-white">Email</p>
-                      <a href="mailto:info@vitalflamewellness.com" className="text-gray-300 hover:text-red-500 transition-colors">info@vitalflamewellness.com</a>
+                      <p className="text-xs uppercase tracking-wide text-slate-400 font-medium mb-0.5">Email</p>
+                      <a href="mailto:info@vitalityatfocalpoint.com" className="text-navy-800 font-semibold hover:text-brand-500 transition-colors">info@vitalityatfocalpoint.com</a>
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-gold-600 p-3 rounded-lg">
-                      <MapPin className="text-black" size={24} />
+                  <div className="flex items-start gap-4">
+                    <div className="bg-brand-500 p-3 rounded-xl shrink-0">
+                      <MapPin className="text-white" size={22} />
                     </div>
                     <div>
-                      <p className="font-semibold text-white">Address</p>
-                      <a href="https://maps.google.com/?q=8770+E+Arapahoe+Road+%23202,+Centennial,+CO+80112" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-gold-500 transition-colors">8770 E Arapahoe Road #202<br />Centennial, CO 80112</a>
+                      <p className="text-xs uppercase tracking-wide text-slate-400 font-medium mb-0.5">Address</p>
+                      <a
+                        href={MAPS_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-navy-800 font-semibold hover:text-brand-500 transition-colors"
+                      >
+                        15454 N Frank Lloyd Wright Blvd<br />A2 Suite 23, Scottsdale, AZ 85260
+                      </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-red-600 p-3 rounded-lg">
-                      <Clock className="text-white" size={24} />
+                  <div className="flex items-start gap-4">
+                    <div className="bg-navy-800 p-3 rounded-xl shrink-0">
+                      <Clock className="text-brand-300" size={22} />
                     </div>
                     <div>
-                      <p className="font-semibold text-white">Hours</p>
-                      <p className="text-gray-300">
-                        Mon–Fri: 8:00 AM – 5:00 PM<br />
-                        Sat: By appointment
+                      <p className="text-xs uppercase tracking-wide text-slate-400 font-medium mb-0.5">Hours</p>
+                      <p className="text-navy-800 font-semibold">
+                        Monday – Friday: 9:00 AM – 5:00 PM<br />
+                        <span className="text-slate-400 font-normal text-sm">Saturday & Sunday: Closed</span>
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                  <a href="tel:+17209155508" className="bg-gold-600 hover:bg-gold-700 text-black px-6 py-3 rounded-lg font-semibold transition-colors text-center">
+                <div className="flex flex-col sm:flex-row gap-3 mt-8 pt-8 border-t border-silver-200">
+                  <a
+                    href="tel:+14805639966"
+                    className="bg-brand-500 hover:bg-brand-600 text-white px-5 py-3 rounded-lg font-semibold transition-all text-center text-sm hover:scale-105"
+                  >
                     Call Now
                   </a>
-                  <a href="https://api.leadconnectorhq.com/widget/booking/Hw7spaCC9MJ1nx2CftQh" target="_blank" rel="noopener noreferrer" className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors text-center">
+                  <a
+                    href={BOOKING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-navy-800 hover:bg-navy-700 text-white px-5 py-3 rounded-lg font-semibold transition-all text-center text-sm hover:scale-105"
+                  >
                     Book Consultation
                   </a>
-                  <a href="https://maps.google.com/?q=8770+E+Arapahoe+Road+%23202,+Centennial,+CO+80112" target="_blank" rel="noopener noreferrer" className="bg-gold-600 hover:bg-gold-700 text-black px-6 py-3 rounded-lg font-semibold transition-colors text-center">
+                  <a
+                    href={MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-brand-300 text-brand-600 hover:bg-brand-50 px-5 py-3 rounded-lg font-semibold transition-all text-center text-sm hover:scale-105"
+                  >
                     Get Directions
                   </a>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
 
             {/* Patient Portal */}
-            <div className="space-y-8">
-              <div className="bg-slate-900 border border-gold-600 rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-white mb-6">Patient Portal</h3>
-                <p className="text-gray-300 mb-8 leading-relaxed">
-                  Manage appointments, message your care team, and review lab results securely through our HIPAA-compliant patient portal.
-                </p>
-                
-                <div className="space-y-4 mb-8">
-                  <a href="https://secure.gethealthie.com/users/sign_in" target="_blank" rel="noopener noreferrer" className="block w-full bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-lg font-semibold transition-colors text-center">
+            <AnimatedSection delay={150}>
+              <div className="bg-navy-950 border border-brand-500/30 rounded-2xl p-8 shadow-lg h-full flex flex-col relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full -translate-y-32 translate-x-32" />
+                <div className="relative">
+                  <div className="bg-brand-500/10 border border-brand-500/20 rounded-xl p-4 inline-block mb-6">
+                    <Shield className="text-brand-400" size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-3">Patient Portal</h3>
+                  <p className="text-slate-400 leading-relaxed mb-8">
+                    Manage your appointments, securely message your care team, access your treatment plans, and review lab results — all through our HIPAA-compliant patient portal.
+                  </p>
+
+                  <div className="space-y-3 mb-8">
+                    {['Secure messaging with your provider', 'Appointment scheduling and management', 'Access to lab results and treatment plans', 'Prescription and refill requests'].map((feature) => (
+                      <div key={feature} className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 bg-brand-400 rounded-full shrink-0" />
+                        <span className="text-slate-300 text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <a
+                    href={PORTAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full bg-brand-500 hover:bg-brand-600 text-white px-6 py-4 rounded-xl font-semibold transition-all text-center hover:scale-[1.02] shadow-lg shadow-brand-900/30"
+                  >
                     Access Patient Portal
                   </a>
                 </div>
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-black border-t border-gold-600 py-12">
+      <footer className="bg-navy-950 border-t border-brand-800/50 pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center">
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              {/* Company Info */}
-              <div>
-                <div className="flex items-center mb-4">
-                  <img 
-                    src="https://github.com/Bigfootage/Visual-Material/blob/main/vitalflame_logo_no_text.png?raw=true"
-                    alt="Vital Flame Wellness Logo"
-                    className="h-10 w-auto mr-3"
-                  />
-                  <div className="text-2xl font-bold">
-                    <span className="text-white">VITAL FLAME</span>
-                    <span className="text-gold-500"> WELLNESS</span>
-                  </div>
-                </div>
-                <p className="text-gray-300 mb-4">Integrative Medical Wellness</p>
-                <p className="text-gray-400 text-sm mb-4">
-                  <a href="https://maps.google.com/?q=8770+E+Arapahoe+Road+%23202,+Centennial,+CO+80112" target="_blank" rel="noopener noreferrer" className="hover:text-gold-400 transition-colors">8770 E Arapahoe Road #202, Centennial, CO 80112</a>
-                </p>
-                <p className="text-gray-400 text-sm mb-6">
-                  <a href="tel:720-915-5508" className="hover:text-gold-400 transition-colors">720-915-5508</a>
-                </p>
-                <p className="text-red-400 text-sm font-medium">
-                  For medical emergencies, call 911.
-                </p>
-              </div>
+          <div className="grid md:grid-cols-3 gap-10 mb-12">
+            {/* Brand */}
+            <div>
+              <img
+                src="/FocalPoint_Color.png"
+                alt="Focal Point Rejuvenation Center"
+                className="h-10 w-auto mb-4 brightness-0 invert opacity-80"
+              />
+              <p className="text-slate-400 text-sm mb-3 leading-relaxed">
+                Precision medical wellness — hormone optimization, cellular therapy, and weight management in Scottsdale, AZ.
+              </p>
+              <a
+                href={MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-500 text-sm hover:text-brand-400 transition-colors block mb-1"
+              >
+                15454 N Frank Lloyd Wright Blvd A2 Suite 23<br />Scottsdale, AZ 85260
+              </a>
+              <a href="tel:+14805639966" className="text-slate-500 text-sm hover:text-brand-400 transition-colors block mb-4">
+                +1 480-563-9966
+              </a>
+              <p className="text-red-400/80 text-xs font-medium">For medical emergencies, call 911.</p>
+            </div>
 
-              {/* Quick Links */}
-              <div>
-                <h3 className="text-lg font-bold text-white mb-4">Quick Links</h3>
-                <div className="space-y-2">
-                  <a href="#services" className="block text-gray-300 hover:text-gold-400 transition-colors">Services</a>
-                  <a href="#method" className="block text-gray-300 hover:text-gold-400 transition-colors">Method</a>
-                  <a href="#testimonials" className="block text-gray-300 hover:text-gold-400 transition-colors">Testimonials</a>
-                  <a href="#faq" className="block text-gray-300 hover:text-gold-400 transition-colors">FAQ</a>
-                  <a href="#contact" className="block text-gray-300 hover:text-gold-400 transition-colors">Contact</a>
-                </div>
+            {/* Quick Links */}
+            <div>
+              <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Quick Links</h3>
+              <div className="space-y-2.5">
+                {[
+                  { label: 'Services', href: '#services' },
+                  { label: 'Our Method', href: '#method' },
+                  { label: 'Testimonials', href: '#testimonials' },
+                  { label: 'Meet the Team', href: '#team' },
+                  { label: 'FAQ', href: '#faq' },
+                  { label: 'Contact', href: '#contact' },
+                ].map(({ label, href }) => (
+                  <a key={label} href={href} className="block text-slate-400 hover:text-brand-300 transition-colors text-sm">
+                    {label}
+                  </a>
+                ))}
               </div>
+            </div>
 
-              {/* Legal Links */}
-              <div>
-                <h3 className="text-lg font-bold text-white mb-4">Legal</h3>
-                <div className="space-y-2">
-                  <button onClick={() => showPage('privacy')} className="block text-gray-300 hover:text-gold-400 transition-colors text-left">Privacy Policy</button>
-                  <button onClick={() => showPage('terms')} className="block text-gray-300 hover:text-gold-400 transition-colors text-left">Terms</button>
-                  <button onClick={() => showPage('notice')} className="block text-gray-300 hover:text-gold-400 transition-colors text-left">Notice of Privacy Practices</button>
-                </div>
+            {/* Legal + Portal */}
+            <div>
+              <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Legal</h3>
+              <div className="space-y-2.5 mb-8">
+                <button onClick={() => showPage('privacy')} className="block text-slate-400 hover:text-brand-300 transition-colors text-sm text-left">Privacy Policy</button>
+                <button onClick={() => showPage('terms')} className="block text-slate-400 hover:text-brand-300 transition-colors text-sm text-left">Terms of Service</button>
+                <button onClick={() => showPage('notice')} className="block text-slate-400 hover:text-brand-300 transition-colors text-sm text-left">Notice of Privacy Practices</button>
               </div>
+              <a
+                href={PORTAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all hover:scale-105"
+              >
+                Patient Portal →
+              </a>
             </div>
           </div>
 
-          {/* Bottom Footer */}
-          <div className="border-t border-gold-600 pt-8">
-            <div className="text-center text-gray-400 text-sm">
-              <p>© 2025 Vital Flame Wellness. All rights reserved.</p>
-            </div>
+          <div className="border-t border-brand-800/30 pt-8 text-center">
+            <p className="text-slate-500 text-sm">
+              © {new Date().getFullYear()} Vitality at Focal Point Rejuvenation Center. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>
 
-      {/* Sticky CTA Button */}
+      {/* Sticky CTA */}
       <div className="fixed bottom-6 right-6 z-40">
-        <a href="https://api.leadconnectorhq.com/widget/booking/Hw7spaCC9MJ1nx2CftQh" target="_blank" rel="noopener noreferrer" className="bg-gold-600 hover:bg-gold-700 text-black px-6 py-4 rounded-full shadow-lg font-semibold transition-all hover:scale-105 inline-block">
+        <a
+          href={BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-brand-500 hover:bg-brand-600 text-white px-6 py-3.5 rounded-full shadow-xl shadow-brand-900/40 font-semibold transition-all hover:scale-105 inline-flex items-center gap-2 text-sm"
+        >
           Book Consultation
         </a>
       </div>
 
-      {/* Scroll to Top Button */}
+      {/* Scroll to top */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 left-6 bg-red-600 hover:bg-red-700 text-white p-3 rounded-full shadow-lg transition-all hover:scale-105 z-40"
+          className="fixed bottom-6 left-6 bg-navy-800 hover:bg-navy-700 border border-brand-500/40 text-white p-3 rounded-full shadow-lg transition-all hover:scale-105 z-40"
         >
           <ArrowUp size={20} />
         </button>

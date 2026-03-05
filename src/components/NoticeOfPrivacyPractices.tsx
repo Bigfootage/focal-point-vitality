@@ -7,24 +7,24 @@ interface NoticeOfPrivacyPracticesProps {
 
 export function NoticeOfPrivacyPractices({ onBack }: NoticeOfPrivacyPracticesProps) {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-navy-950 text-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <button
           onClick={onBack}
-          className="flex items-center space-x-2 text-gold-500 hover:text-gold-400 mb-8 transition-colors"
+          className="flex items-center space-x-2 text-brand-400 hover:text-brand-300 mb-8 transition-colors"
         >
           <ArrowLeft size={20} />
           <span>Back to Home</span>
         </button>
 
         <h1 className="text-4xl font-bold text-white mb-8">Notice of Privacy Practices</h1>
-        <p className="text-gray-400 mb-8">Effective Date: January 1, 2025</p>
+        <p className="text-slate-400 mb-8">Effective Date: January 1, 2025</p>
 
-        <div className="space-y-8 text-gray-300">
+        <div className="space-y-8 text-slate-300">
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Your Health Information Rights</h2>
             <p className="mb-4">
-              This notice describes how medical information about you may be used and disclosed and how you 
+              This notice describes how medical information about you may be used and disclosed and how you
               can get access to this information. Please review it carefully.
             </p>
             <p className="mb-4">You have the right to:</p>
@@ -43,20 +43,20 @@ export function NoticeOfPrivacyPractices({ onBack }: NoticeOfPrivacyPracticesPro
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">How We Use and Share Your Health Information</h2>
             <p className="mb-4">We may use and share your health information for:</p>
-            
+
             <div className="space-y-4">
               <div>
-                <h3 className="text-xl font-semibold text-gold-500 mb-2">Treatment</h3>
+                <h3 className="text-xl font-semibold text-brand-400 mb-2">Treatment</h3>
                 <p>We can use your health information and share it with professionals who are treating you.</p>
               </div>
-              
+
               <div>
-                <h3 className="text-xl font-semibold text-gold-500 mb-2">Payment</h3>
+                <h3 className="text-xl font-semibold text-brand-400 mb-2">Payment</h3>
                 <p>We can use and disclose your health information for payment purposes, including billing and collection activities.</p>
               </div>
-              
+
               <div>
-                <h3 className="text-xl font-semibold text-gold-500 mb-2">Health Care Operations</h3>
+                <h3 className="text-xl font-semibold text-brand-400 mb-2">Health Care Operations</h3>
                 <p>We can use and disclose your health information for our health care operations, including quality improvement and staff training.</p>
               </div>
             </div>
@@ -84,7 +84,7 @@ export function NoticeOfPrivacyPractices({ onBack }: NoticeOfPrivacyPracticesPro
               <li>Share information in a disaster relief situation</li>
             </ul>
             <p className="mt-4">
-              If you are not able to tell us your preference, we may go ahead and share your information 
+              If you are not able to tell us your preference, we may go ahead and share your information
               if we believe it is in your best interest.
             </p>
           </section>
@@ -102,7 +102,7 @@ export function NoticeOfPrivacyPractices({ onBack }: NoticeOfPrivacyPracticesPro
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Changes to This Notice</h2>
             <p>
-              We can change the terms of this notice, and the changes will apply to all information we have 
+              We can change the terms of this notice, and the changes will apply to all information we have
               about you. The new notice will be available upon request and on our website.
             </p>
           </section>
@@ -112,25 +112,25 @@ export function NoticeOfPrivacyPractices({ onBack }: NoticeOfPrivacyPracticesPro
             <p className="mb-4">
               If you have questions about this notice or need help with exercising your rights, please contact us:
             </p>
-            <div className="bg-slate-900 border border-gold-600 rounded-lg p-6">
+            <div className="bg-navy-800 border border-brand-500/30 rounded-lg p-6">
               <p><strong>Privacy Officer</strong></p>
-              <p><strong>Vital Flame Wellness</strong></p>
-              <p>8770 E Arapahoe Road #202</p>
-              <p>Centennial, CO 80112</p>
-              <p>Phone: <a href="tel:720-915-5508" className="text-gold-500 hover:text-gold-400">720-915-5508</a></p>
-              <p>Email: <a href="mailto:info@vitalflamewellness.com" className="text-gold-500 hover:text-gold-400">info@vitalflamewellness.com</a></p>
+              <p><strong>Vitality at Focal Point Rejuvenation Center</strong></p>
+              <p>15454 N Frank Lloyd Wright Blvd A2 Suite 23</p>
+              <p>Scottsdale, AZ 85260</p>
+              <p>Phone: <a href="tel:+14805639966" className="text-brand-400 hover:text-brand-300">+1 480-563-9966</a></p>
+              <p>Email: <a href="mailto:info@vitalityatfocalpoint.com" className="text-brand-400 hover:text-brand-300">info@vitalityatfocalpoint.com</a></p>
             </div>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">File a Complaint</h2>
             <p className="mb-4">
-              You can file a complaint if you feel we have violated your rights by contacting us using the 
-              information above. You can also file a complaint with the U.S. Department of Health and Human Services 
-              Office for Civil Rights by sending a letter to 200 Independence Avenue, S.W., Washington, D.C. 20201, 
+              You can file a complaint if you feel we have violated your rights by contacting us using the
+              information above. You can also file a complaint with the U.S. Department of Health and Human Services
+              Office for Civil Rights by sending a letter to 200 Independence Avenue, S.W., Washington, D.C. 20201,
               calling 1-877-696-6775, or visiting www.hhs.gov/ocr/privacy/hipaa/complaints/.
             </p>
-            <p className="text-gold-500 font-semibold">
+            <p className="text-brand-400 font-semibold">
               We will not retaliate against you for filing a complaint.
             </p>
           </section>

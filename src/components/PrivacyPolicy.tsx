@@ -7,24 +7,24 @@ interface PrivacyPolicyProps {
 
 export function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-navy-950 text-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <button
           onClick={onBack}
-          className="flex items-center space-x-2 text-gold-500 hover:text-gold-400 mb-8 transition-colors"
+          className="flex items-center space-x-2 text-brand-400 hover:text-brand-300 mb-8 transition-colors"
         >
           <ArrowLeft size={20} />
           <span>Back to Home</span>
         </button>
 
         <h1 className="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
-        <p className="text-gray-400 mb-8">Last updated: January 2025</p>
+        <p className="text-slate-400 mb-8">Last updated: January 2025</p>
 
-        <div className="space-y-8 text-gray-300">
+        <div className="space-y-8 text-slate-300">
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Information We Collect</h2>
             <p className="mb-4">
-              At Vital Flame Wellness, we collect information you provide directly to us, such as when you:
+              At Vitality at Focal Point Rejuvenation Center, we collect information you provide directly to us, such as when you:
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Schedule an appointment or consultation</li>
@@ -64,8 +64,8 @@ export function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
           <section>
             <h2 className="text-2xl font-bold text-white mb-4">Data Security</h2>
             <p>
-              We implement appropriate technical and organizational measures to protect your personal information 
-              against unauthorized access, alteration, disclosure, or destruction. Our systems are HIPAA compliant 
+              We implement appropriate technical and organizational measures to protect your personal information
+              against unauthorized access, alteration, disclosure, or destruction. Our systems are HIPAA compliant
               and we regularly review our security practices.
             </p>
           </section>
@@ -87,12 +87,12 @@ export function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
             <p className="mb-4">
               If you have questions about this Privacy Policy or our privacy practices, please contact us:
             </p>
-            <div className="bg-slate-900 border border-gold-600 rounded-lg p-6">
-              <p><strong>Vital Flame Wellness</strong></p>
-              <p>8770 E Arapahoe Road #202</p>
-              <p>Centennial, CO 80112</p>
-              <p>Phone: <a href="tel:720-915-5508" className="text-gold-500 hover:text-gold-400">720-915-5508</a></p>
-              <p>Email: <a href="mailto:info@vitalflamewellness.com" className="text-gold-500 hover:text-gold-400">info@vitalflamewellness.com</a></p>
+            <div className="bg-navy-800 border border-brand-500/30 rounded-lg p-6">
+              <p><strong>Vitality at Focal Point Rejuvenation Center</strong></p>
+              <p>15454 N Frank Lloyd Wright Blvd A2 Suite 23</p>
+              <p>Scottsdale, AZ 85260</p>
+              <p>Phone: <a href="tel:+14805639966" className="text-brand-400 hover:text-brand-300">+1 480-563-9966</a></p>
+              <p>Email: <a href="mailto:info@vitalityatfocalpoint.com" className="text-brand-400 hover:text-brand-300">info@vitalityatfocalpoint.com</a></p>
             </div>
           </section>
         </div>
