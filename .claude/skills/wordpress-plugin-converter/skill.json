@@ -1,0 +1,26 @@
+{
+  "name": "wordpress-plugin-converter",
+  "version": "1.0.0",
+  "description": "Converts React/Vite applications into fully functional WordPress plugins with automatic asset detection, metadata extraction, and mobile-responsive templates",
+  "author": "Claude Skills",
+  "trigger": "/wordpress-plugin-converter",
+  "category": "deployment",
+  "tags": ["wordpress", "plugin", "react", "vite", "converter", "deployment"],
+  "requirements": {
+    "projectType": ["react", "vite"],
+    "files": ["package.json", "vite.config.ts", "index.html"]
+  },
+  "permissions": {
+    "read": true,
+    "write": true,
+    "execute": true
+  },
+  "tools": [
+    "Read",
+    "Write",
+    "Bash",
+    "Glob",
+    "Grep",
+    "Edit"
+  ]
+}
