@@ -141,17 +141,17 @@ function App() {
       title: "Energy & Vitality",
       content: (
         <div className="space-y-6">
-          <p className="text-slate-300 text-lg leading-relaxed">
+          <p className="text-slate-600 text-lg leading-relaxed">
             Restore your natural energy and reclaim the vitality you once had. Our comprehensive approach addresses the root causes of fatigue and low energy through advanced diagnostics.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Low energy and chronic fatigue</h4>
-              <p className="text-slate-400 text-sm">Comprehensive hormone evaluation to identify and address underlying causes of persistent tiredness</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Low energy and chronic fatigue</h4>
+              <p className="text-slate-500 text-sm">Comprehensive hormone evaluation to identify and address underlying causes of persistent tiredness</p>
             </div>
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Brain fog and low motivation</h4>
-              <p className="text-slate-400 text-sm">Targeted protocols to enhance cognitive function, mental clarity, and drive</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Brain fog and low motivation</h4>
+              <p className="text-slate-500 text-sm">Targeted protocols to enhance cognitive function, mental clarity, and drive</p>
             </div>
           </div>
           <img
@@ -166,17 +166,17 @@ function App() {
       title: "Body Composition",
       content: (
         <div className="space-y-6">
-          <p className="text-slate-300 text-lg leading-relaxed">
+          <p className="text-slate-600 text-lg leading-relaxed">
             Achieve sustainable changes in body composition through medical-grade interventions and personalized nutrition strategies tailored to your biology.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Weight gain and stubborn fat</h4>
-              <p className="text-slate-400 text-sm">Medical weight management with evidence-based protocols customized to your metabolism</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Weight gain and stubborn fat</h4>
+              <p className="text-slate-500 text-sm">Medical weight management with evidence-based protocols customized to your metabolism</p>
             </div>
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Loss of muscle or strength</h4>
-              <p className="text-slate-400 text-sm">Hormone optimization to preserve and rebuild lean muscle mass as you age</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Loss of muscle or strength</h4>
+              <p className="text-slate-500 text-sm">Hormone optimization to preserve and rebuild lean muscle mass as you age</p>
             </div>
           </div>
           <img
@@ -191,17 +191,17 @@ function App() {
       title: "Sleep & Recovery",
       content: (
         <div className="space-y-6">
-          <p className="text-slate-300 text-lg leading-relaxed">
+          <p className="text-slate-600 text-lg leading-relaxed">
             Optimize your sleep architecture and recovery processes for better overall health, performance, and long-term resilience.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Poor sleep quality</h4>
-              <p className="text-slate-400 text-sm">Comprehensive sleep optimization through hormone balance and evidence-based protocols</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Poor sleep quality</h4>
+              <p className="text-slate-500 text-sm">Comprehensive sleep optimization through hormone balance and evidence-based protocols</p>
             </div>
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Slow recovery from training</h4>
-              <p className="text-slate-400 text-sm">Advanced cellular therapy to accelerate muscle repair and physical recovery</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Slow recovery from training</h4>
+              <p className="text-slate-500 text-sm">Advanced cellular therapy to accelerate muscle repair and physical recovery</p>
             </div>
           </div>
           <img
@@ -216,17 +216,17 @@ function App() {
       title: "Hormonal Health",
       content: (
         <div className="space-y-6">
-          <p className="text-slate-300 text-lg leading-relaxed">
+          <p className="text-slate-600 text-lg leading-relaxed">
             Address hormonal imbalances that affect mood, energy, and quality of life through evidence-based, personalized treatment approaches.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Perimenopause & menopause</h4>
-              <p className="text-slate-400 text-sm">Comprehensive hormone replacement therapy options tailored to your symptoms and goals</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Perimenopause & menopause</h4>
+              <p className="text-slate-500 text-sm">Comprehensive hormone replacement therapy options tailored to your symptoms and goals</p>
             </div>
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Andropause & low testosterone</h4>
-              <p className="text-slate-400 text-sm">Testosterone optimization protocols to restore men's energy, drive, and vitality</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Andropause & low testosterone</h4>
+              <p className="text-slate-500 text-sm">Testosterone optimization protocols to restore men's energy, drive, and vitality</p>
             </div>
           </div>
           <img
@@ -241,17 +241,17 @@ function App() {
       title: "Metabolic Wellness",
       content: (
         <div className="space-y-6">
-          <p className="text-slate-300 text-lg leading-relaxed">
+          <p className="text-slate-600 text-lg leading-relaxed">
             Optimize your metabolic health for long-term wellness and disease prevention through personalized, data-driven interventions.
           </p>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Metabolic health concerns</h4>
-              <p className="text-slate-400 text-sm">Comprehensive metabolic panel analysis and targeted optimization strategies</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Metabolic health concerns</h4>
+              <p className="text-slate-500 text-sm">Comprehensive metabolic panel analysis and targeted optimization strategies</p>
             </div>
-            <div className="bg-navy-800 border border-brand-500/40 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
-              <h4 className="font-semibold text-white mb-2">Mood swings and irritability</h4>
-              <p className="text-slate-400 text-sm">Hormone balance protocols to stabilize mood and support emotional well-being</p>
+            <div className="bg-white border border-silver-300 p-6 rounded-xl shadow-md hover:border-brand-400 transition-colors">
+              <h4 className="font-semibold text-navy-900 mb-2">Mood swings and irritability</h4>
+              <p className="text-slate-500 text-sm">Hormone balance protocols to stabilize mood and support emotional well-being</p>
             </div>
           </div>
           <img
@@ -322,7 +322,6 @@ function App() {
               <a href="#services" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Services</a>
               <a href="#method" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Method</a>
               <a href="#testimonials" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Testimonials</a>
-              <a href="#team" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Team</a>
               <a href="#faq" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">FAQ</a>
               <a href="#contact" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Contact</a>
               <a
@@ -346,7 +345,7 @@ function App() {
           {isMenuOpen && (
             <div className="lg:hidden border-t border-brand-800/50 py-4">
               <div className="flex flex-col gap-1">
-                {['Services', 'Method', 'Testimonials', 'Team', 'FAQ', 'Contact'].map((item) => (
+                {['Services', 'Method', 'Testimonials', 'FAQ', 'Contact'].map((item) => (
                   <a
                     key={item}
                     href={`#${item.toLowerCase()}`}
@@ -706,62 +705,16 @@ function App() {
         highlightWord="Results"
       />
 
-      <section id="team" className="py-24 bg-silver-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="faq" className="py-24 bg-silver-100 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-brand-600 text-sm font-medium mb-4">
-              Your Care Team
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-5">
-              Your Medical <span className="text-brand-500">Provider</span>
-            </h2>
-            <p className="text-xl text-slate-500 max-w-3xl mx-auto">
-              Board-certified expertise combined with a deeply personalized approach to your health journey.
-            </p>
-          </AnimatedSection>
-
-          <div className="flex justify-center">
-            <AnimatedSection>
-              <div className="bg-white border border-silver-300 rounded-2xl p-10 text-center shadow-xl max-w-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div className="relative inline-block mb-6">
-                  <div className="absolute inset-0 bg-brand-200 rounded-full blur-lg opacity-40" />
-                  <img
-                    src="https://github.com/Bigfootage/Visual-Material/blob/main/headshot.JPG?raw=true"
-                    alt="Sheena Meyer, FNP-C"
-                    className="relative w-40 h-40 rounded-full object-cover border-4 border-brand-100 shadow-lg"
-                  />
-                </div>
-                <h3 className="text-2xl font-bold text-navy-900 mb-1">Sheena Meyer, FNP-C</h3>
-                <p className="text-brand-500 font-semibold mb-4 text-sm uppercase tracking-wide">Family Nurse Practitioner</p>
-                <div className="w-12 h-0.5 bg-brand-200 mx-auto mb-4" />
-                <p className="text-slate-500 leading-relaxed text-sm">
-                  Specialized in hormone optimization, advanced cellular therapy, and personalized wellness protocols — helping patients achieve and sustain optimal health and vitality.
-                </p>
-              </div>
-            </AnimatedSection>
-          </div>
-        </div>
-      </section>
-
-      <section id="faq" className="py-24 bg-navy-950 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage: `radial-gradient(circle, #1C7AC2 1px, transparent 1px)`,
-              backgroundSize: '56px 56px',
-            }}
-          />
-        </div>
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 rounded-full px-4 py-1.5 text-brand-300 text-sm font-medium mb-4">
               Questions & Answers
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
-              Frequently Asked <span className="text-brand-400">Questions</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-5">
+              Frequently Asked <span className="text-brand-500">Questions</span>
             </h2>
-            <p className="text-xl text-slate-400">
+            <p className="text-xl text-slate-500">
               Clear answers to help you understand our approach and what to expect.
             </p>
           </AnimatedSection>
@@ -786,12 +739,12 @@ function App() {
               },
             ].map(({ q, a }, i) => (
               <AnimatedSection key={i} delay={i * 80}>
-                <div className="bg-navy-800 border border-brand-500/20 rounded-xl p-7 hover:border-brand-400/40 transition-colors">
-                  <h3 className="text-lg font-bold text-white mb-3 flex items-start gap-3">
-                    <span className="text-brand-400 font-bold shrink-0">Q.</span>
+                <div className="bg-white border border-silver-300 rounded-xl p-7 shadow-sm hover:border-brand-300 transition-colors">
+                  <h3 className="text-lg font-bold text-navy-900 mb-3 flex items-start gap-3">
+                    <span className="text-brand-500 font-bold shrink-0">Q.</span>
                     {q}
                   </h3>
-                  <p className="text-slate-400 leading-relaxed pl-6">{a}</p>
+                  <p className="text-slate-500 leading-relaxed pl-6">{a}</p>
                 </div>
               </AnimatedSection>
             ))}
@@ -799,24 +752,33 @@ function App() {
         </div>
       </section>
 
-      <section id="contact" className="py-24 bg-silver-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="contact" className="py-24 bg-navy-950 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `radial-gradient(circle, #1C7AC2 1px, transparent 1px)`,
+              backgroundSize: '56px 56px',
+            }}
+          />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-brand-600 text-sm font-medium mb-4">
+            <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 rounded-full px-4 py-1.5 text-brand-300 text-sm font-medium mb-4">
               Get in Touch
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-5">
-              Visit Us in <span className="text-brand-500">Scottsdale</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
+              Visit Us in <span className="text-brand-400">Scottsdale</span>
             </h2>
-            <p className="text-xl text-slate-500">
+            <p className="text-xl text-slate-400">
               Ready to start your precision wellness journey? We're here to help.
             </p>
           </AnimatedSection>
 
           <div className="grid lg:grid-cols-2 gap-10">
             <AnimatedSection>
-              <div className="bg-white border border-silver-300 rounded-2xl p-8 shadow-lg h-full">
-                <h3 className="text-2xl font-bold text-navy-900 mb-8">Contact Information</h3>
+              <div className="bg-navy-800 border border-brand-500/20 rounded-2xl p-8 shadow-lg h-full">
+                <h3 className="text-2xl font-bold text-white mb-8">Contact Information</h3>
 
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
@@ -824,18 +786,18 @@ function App() {
                       <Phone className="text-white" size={22} />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-slate-400 font-medium mb-0.5">Phone</p>
-                      <a href="tel:+14805639966" className="text-navy-800 font-semibold hover:text-brand-500 transition-colors">+1 480-563-9966</a>
+                      <p className="text-xs uppercase tracking-wide text-slate-500 font-medium mb-0.5">Phone</p>
+                      <a href="tel:+14805639966" className="text-white font-semibold hover:text-brand-300 transition-colors">+1 480-563-9966</a>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-4">
-                    <div className="bg-navy-800 p-3 rounded-xl shrink-0">
+                    <div className="bg-navy-700 p-3 rounded-xl shrink-0">
                       <Mail className="text-brand-300" size={22} />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-slate-400 font-medium mb-0.5">Email</p>
-                      <a href={`mailto:${EMAIL}`} className="text-navy-800 font-semibold hover:text-brand-500 transition-colors">{EMAIL}</a>
+                      <p className="text-xs uppercase tracking-wide text-slate-500 font-medium mb-0.5">Email</p>
+                      <a href={`mailto:${EMAIL}`} className="text-white font-semibold hover:text-brand-300 transition-colors">{EMAIL}</a>
                     </div>
                   </div>
 
@@ -844,12 +806,12 @@ function App() {
                       <MapPin className="text-white" size={22} />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-slate-400 font-medium mb-0.5">Address</p>
+                      <p className="text-xs uppercase tracking-wide text-slate-500 font-medium mb-0.5">Address</p>
                       <a
                         href={MAPS_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-navy-800 font-semibold hover:text-brand-500 transition-colors"
+                        className="text-white font-semibold hover:text-brand-300 transition-colors"
                       >
                         15454 N Frank Lloyd Wright Blvd<br />A2 Suite 23, Scottsdale, AZ 85260
                       </a>
@@ -857,12 +819,12 @@ function App() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="bg-navy-800 p-3 rounded-xl shrink-0">
+                    <div className="bg-navy-700 p-3 rounded-xl shrink-0">
                       <Clock className="text-brand-300" size={22} />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-slate-400 font-medium mb-0.5">Hours</p>
-                      <p className="text-navy-800 font-semibold">
+                      <p className="text-xs uppercase tracking-wide text-slate-500 font-medium mb-0.5">Hours</p>
+                      <p className="text-white font-semibold">
                         Monday – Friday: 9:00 AM – 5:00 PM<br />
                         <span className="text-slate-400 font-normal text-sm">Saturday & Sunday: Closed</span>
                       </p>
@@ -870,7 +832,7 @@ function App() {
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 mt-8 pt-8 border-t border-silver-200">
+                <div className="flex flex-col sm:flex-row gap-3 mt-8 pt-8 border-t border-brand-800/50">
                   <a
                     href="tel:+14805639966"
                     className="bg-brand-500 hover:bg-brand-600 text-white px-5 py-3 rounded-lg font-semibold transition-all text-center text-sm hover:scale-105"
@@ -881,7 +843,7 @@ function App() {
                     href={BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-navy-800 hover:bg-navy-700 text-white px-5 py-3 rounded-lg font-semibold transition-all text-center text-sm hover:scale-105"
+                    className="bg-navy-700 hover:bg-navy-600 text-white px-5 py-3 rounded-lg font-semibold transition-all text-center text-sm hover:scale-105"
                   >
                     Book Consultation
                   </a>
@@ -889,7 +851,7 @@ function App() {
                     href={MAPS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border border-brand-300 text-brand-600 hover:bg-brand-50 px-5 py-3 rounded-lg font-semibold transition-all text-center text-sm hover:scale-105"
+                    className="border border-brand-500/40 text-brand-300 hover:bg-brand-500/10 px-5 py-3 rounded-lg font-semibold transition-all text-center text-sm hover:scale-105"
                   >
                     Get Directions
                   </a>
@@ -898,7 +860,7 @@ function App() {
             </AnimatedSection>
 
             <AnimatedSection delay={150}>
-              <div className="bg-navy-950 border border-brand-500/30 rounded-2xl p-8 shadow-lg h-full flex flex-col relative overflow-hidden">
+              <div className="bg-navy-800 border border-brand-500/30 rounded-2xl p-8 shadow-lg h-full flex flex-col relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full -translate-y-32 translate-x-32" />
                 <div className="relative">
                   <div className="bg-brand-500/10 border border-brand-500/20 rounded-xl p-4 inline-block mb-6">
@@ -969,7 +931,6 @@ function App() {
                   { label: 'Services', href: '#services' },
                   { label: 'Our Method', href: '#method' },
                   { label: 'Testimonials', href: '#testimonials' },
-                  { label: 'Meet the Team', href: '#team' },
                   { label: 'FAQ', href: '#faq' },
                   { label: 'Contact', href: '#contact' },
                 ].map(({ label, href }) => (

@@ -29,33 +29,24 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
   }, []);
 
   return (
-    <section id="conditions" className="py-24 bg-navy-950 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage: `radial-gradient(circle, #1C7AC2 1px, transparent 1px)`,
-            backgroundSize: '56px 56px',
-          }}
-        />
-      </div>
+    <section id="conditions" className="py-24 bg-silver-100 relative overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 rounded-full px-4 py-1.5 text-brand-300 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 rounded-full px-4 py-1.5 text-brand-600 text-sm font-medium mb-4">
             Conditions We Address
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
-            Conditions We <span className="text-brand-400">Help</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-navy-900 mb-5">
+            Conditions We <span className="text-brand-500">Help</span>
           </h2>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-500 max-w-3xl mx-auto">
             Comprehensive care for the full spectrum of hormone-related and metabolic health challenges.
           </p>
         </div>
 
         <div ref={containerRef} className="relative">
-          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-brand-500/20" />
+          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-brand-300/50" />
           <div
-            className="absolute left-4 md:left-8 top-0 w-px bg-brand-400 transition-all duration-500"
+            className="absolute left-4 md:left-8 top-0 w-px bg-brand-500 transition-all duration-500"
             style={{ height: `${((activeIndex + 1) / data.length) * 100}%` }}
           />
 
@@ -74,8 +65,8 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
                     className={cn(
                       'w-4 h-4 rounded-full border-2 transition-all duration-300 z-10 flex-shrink-0',
                       index <= activeIndex
-                        ? 'bg-brand-500 border-brand-400 shadow-lg shadow-brand-500/50'
-                        : 'bg-navy-800 border-brand-500/40'
+                        ? 'bg-brand-500 border-brand-400 shadow-lg shadow-brand-500/40'
+                        : 'bg-silver-200 border-brand-300/60'
                     )}
                   />
                 </div>
@@ -83,7 +74,7 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
                   <h3
                     className={cn(
                       'text-2xl font-bold mb-6 transition-colors duration-300',
-                      index <= activeIndex ? 'text-brand-400' : 'text-slate-500'
+                      index <= activeIndex ? 'text-brand-600' : 'text-slate-400'
                     )}
                   >
                     {item.title}
