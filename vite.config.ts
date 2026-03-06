@@ -11,6 +11,7 @@ function safeCopyPublicPlugin() {
     closeBundle: async () => {
       const publicDir = path.resolve(__dirname, 'public');
       const distDir = path.resolve(__dirname, 'dist');
+      if (!fs.existsSync(publicDir)) return;
       const entries = fs.readdirSync(publicDir);
       for (const entry of entries) {
         const src = path.join(publicDir, entry);
@@ -59,7 +60,7 @@ export default defineConfig({
   plugins: [react(), safeCopyPublicPlugin()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'),
     },
   },
   optimizeDeps: {

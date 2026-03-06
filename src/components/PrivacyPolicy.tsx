@@ -1,100 +1,47 @@
-import React from 'react';
-import { ArrowLeft } from 'lucide-react';
-
-interface PrivacyPolicyProps {
+interface Props {
   onBack: () => void;
 }
 
-export function PrivacyPolicy({ onBack }: PrivacyPolicyProps) {
+export function PrivacyPolicy({ onBack }: Props) {
   return (
-    <div className="min-h-screen bg-navy-950 text-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-silver-100 py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <button
           onClick={onBack}
-          className="flex items-center space-x-2 text-brand-400 hover:text-brand-300 mb-8 transition-colors"
+          className="mb-8 text-brand-500 hover:text-brand-600 font-semibold flex items-center gap-2 transition-colors"
         >
-          <ArrowLeft size={20} />
-          <span>Back to Home</span>
+          ← Back to Home
         </button>
+        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+          <h1 className="text-3xl font-bold text-navy-900 mb-2">Privacy Policy</h1>
+          <p className="text-slate-500 text-sm mb-8">Last Updated: January 1, 2025</p>
 
-        <h1 className="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
-        <p className="text-slate-400 mb-8">Last updated: January 2025</p>
-
-        <div className="space-y-8 text-slate-300">
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">Information We Collect</h2>
-            <p className="mb-4">
-              At Vitality at Focal Point Rejuvenation Center, we collect information you provide directly to us, such as when you:
-            </p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Schedule an appointment or consultation</li>
-              <li>Fill out patient forms or health questionnaires</li>
-              <li>Communicate with us via phone, email, or our patient portal</li>
-              <li>Use our website or online services</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">How We Use Your Information</h2>
-            <p className="mb-4">We use the information we collect to:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Provide medical care and treatment services</li>
-              <li>Schedule and manage appointments</li>
-              <li>Communicate about your health and treatment plans</li>
-              <li>Process payments and insurance claims</li>
-              <li>Comply with legal and regulatory requirements</li>
-              <li>Improve our services and patient experience</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">Information Sharing</h2>
-            <p className="mb-4">
-              We may share your information in the following circumstances:
-            </p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>With healthcare providers involved in your care</li>
-              <li>For payment and healthcare operations</li>
-              <li>When required by law or legal process</li>
-              <li>To prevent serious harm to health or safety</li>
-              <li>With your written authorization</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">Data Security</h2>
-            <p>
-              We implement appropriate technical and organizational measures to protect your personal information
-              against unauthorized access, alteration, disclosure, or destruction. Our systems are HIPAA compliant
-              and we regularly review our security practices.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">Your Rights</h2>
-            <p className="mb-4">You have the right to:</p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Access and review your medical records</li>
-              <li>Request corrections to your information</li>
-              <li>Request restrictions on use or disclosure</li>
-              <li>Request confidential communications</li>
-              <li>File a complaint about our privacy practices</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">Contact Us</h2>
-            <p className="mb-4">
-              If you have questions about this Privacy Policy or our privacy practices, please contact us:
-            </p>
-            <div className="bg-navy-800 border border-brand-500/30 rounded-lg p-6">
-              <p><strong>Vitality at Focal Point Rejuvenation Center</strong></p>
-              <p>15454 N Frank Lloyd Wright Blvd A2 Suite 23</p>
-              <p>Scottsdale, AZ 85260</p>
-              <p>Phone: <a href="tel:+14805639966" className="text-brand-400 hover:text-brand-300">+1 480-563-9966</a></p>
-              <p>Email: <a href="mailto:sales@focalpointvitality.com" className="text-brand-400 hover:text-brand-300">sales@focalpointvitality.com</a></p>
-            </div>
-          </section>
+          <div className="prose prose-slate max-w-none space-y-6 text-slate-600 leading-relaxed">
+            <section>
+              <h2 className="text-xl font-bold text-navy-800 mb-3">1. Information We Collect</h2>
+              <p>We collect information you provide directly to us, such as when you schedule an appointment, create an account, or contact us for support. This may include your name, email address, phone number, date of birth, health information, and payment details.</p>
+            </section>
+            <section>
+              <h2 className="text-xl font-bold text-navy-800 mb-3">2. How We Use Your Information</h2>
+              <p>We use the information we collect to provide, maintain, and improve our medical services, process transactions, send administrative communications, and comply with legal obligations including HIPAA requirements.</p>
+            </section>
+            <section>
+              <h2 className="text-xl font-bold text-navy-800 mb-3">3. HIPAA Compliance</h2>
+              <p>Focal Point Vitality is committed to protecting the privacy of your Protected Health Information (PHI) as required by the Health Insurance Portability and Accountability Act (HIPAA). We implement appropriate safeguards to protect your health information.</p>
+            </section>
+            <section>
+              <h2 className="text-xl font-bold text-navy-800 mb-3">4. Information Sharing</h2>
+              <p>We do not sell, trade, or otherwise transfer your personal information to outside parties except as required for treatment, payment, or healthcare operations, or as required by law. We may share information with trusted third parties who assist us in operating our practice.</p>
+            </section>
+            <section>
+              <h2 className="text-xl font-bold text-navy-800 mb-3">5. Data Security</h2>
+              <p>We implement a variety of security measures to maintain the safety of your personal information. Your information is stored on secure servers and we use encryption to protect sensitive data transmitted online.</p>
+            </section>
+            <section>
+              <h2 className="text-xl font-bold text-navy-800 mb-3">6. Contact Us</h2>
+              <p>If you have questions about this Privacy Policy, please contact us at: sales@focalpointvitality.com or call +1 480-563-9966.</p>
+            </section>
+          </div>
         </div>
       </div>
     </div>

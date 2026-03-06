@@ -7,12 +7,18 @@ import { PrivacyPolicy } from '@/components/PrivacyPolicy';
 import { Terms } from '@/components/Terms';
 import { NoticeOfPrivacyPractices } from '@/components/NoticeOfPrivacyPractices';
 
+import logoSrc from '@/assets/images/logo.png';
+import conditionEnergy from '@/assets/images/condition-energy.webp';
+import conditionBody from '@/assets/images/condition-body.webp';
+import conditionSleep from '@/assets/images/condition-sleep.webp';
+import conditionHormones from '@/assets/images/condition-hormones.webp';
+import conditionMetabolic from '@/assets/images/condition-metabolic.webp';
+
 const BOOKING_URL = 'https://link.vitalityatfocalpoint.com/widget/bookings/discovery-booking-link';
 const ASSESSMENT_URL = 'https://link.vitalityatfocalpoint.com/widget/quiz/o7Sd0lcPVXXs9Exju7Vi';
 const PORTAL_URL = 'https://2ib5r7xl4iaxafsdmomv.app.clientclub.net/login';
 const MAPS_URL = 'https://maps.google.com/?q=15454+N+Frank+Lloyd+Wright+Blvd+A2+Suite+23,+Scottsdale,+AZ+85260';
 const EMAIL = 'sales@focalpointvitality.com';
-const LOGO = '/FocalPoint_Color_SMALL.png';
 
 function useScrollAnimation() {
   const ref = useRef<HTMLDivElement>(null);
@@ -148,7 +154,7 @@ function App() {
             </div>
           </div>
           <img
-            src="/condition-energy.webp"
+            src={conditionEnergy}
             alt="Active lifestyle with renewed energy"
             className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
@@ -173,7 +179,7 @@ function App() {
             </div>
           </div>
           <img
-            src="/condition-body.webp"
+            src={conditionBody}
             alt="Body composition and fitness results"
             className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
@@ -198,7 +204,7 @@ function App() {
             </div>
           </div>
           <img
-            src="/condition-sleep.webp"
+            src={conditionSleep}
             alt="Restorative sleep and recovery"
             className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
@@ -223,7 +229,7 @@ function App() {
             </div>
           </div>
           <img
-            src="/condition-hormones.webp"
+            src={conditionHormones}
             alt="Medical consultation and hormone therapy"
             className="rounded-xl object-cover object-top h-48 md:h-64 w-full shadow-lg"
           />
@@ -248,7 +254,7 @@ function App() {
             </div>
           </div>
           <img
-            src="/condition-metabolic.webp"
+            src={conditionMetabolic}
             alt="Healthy nutrition and metabolic wellness"
             className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
@@ -270,7 +276,6 @@ function App() {
   return (
     <div className="min-h-screen bg-silver-100">
 
-      {/* Top contact bar */}
       <div className="bg-navy-950 text-white py-2.5 px-4 border-b border-brand-800">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
@@ -301,19 +306,17 @@ function App() {
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-navy-950/98 shadow-xl shadow-navy-950/50' : 'bg-navy-950'} border-b border-brand-800/60`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center gap-4">
               <img
-                src={LOGO}
+                src={logoSrc}
                 alt="Focal Point Vitality"
                 className="h-12 w-auto"
               />
             </div>
 
-            {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-8">
               <a href="#services" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Services</a>
               <a href="#method" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Method</a>
@@ -339,7 +342,6 @@ function App() {
             </button>
           </div>
 
-          {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="lg:hidden border-t border-brand-800/50 py-4">
               <div className="flex flex-col gap-1">
@@ -367,9 +369,7 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section className="relative bg-navy-950 overflow-hidden min-h-[92vh] flex items-center">
-        {/* Background grid pattern inspired by brandmark */}
         <div className="absolute inset-0 opacity-5">
           <div
             className="w-full h-full"
@@ -379,7 +379,6 @@ function App() {
             }}
           />
         </div>
-        {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/95 to-navy-800/60" />
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-silver-100 to-transparent" />
 
@@ -415,7 +414,7 @@ function App() {
                   Take the Free Assessment
                 </a>
               </div>
-              <div className="pt-2 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
+              <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
                 <div>
                   <div className="text-3xl font-bold text-brand-400">1,000+</div>
                   <div className="text-sm text-slate-400 mt-1">Patients Served</div>
@@ -437,7 +436,6 @@ function App() {
                 alt="Medical professional consultation"
                 className="relative rounded-2xl shadow-2xl w-full h-[620px] object-cover border border-brand-500/20"
               />
-              {/* Floating badge */}
               <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3">
                 <div className="bg-brand-500 rounded-xl p-2.5">
                   <Shield className="text-white" size={22} />
@@ -452,7 +450,6 @@ function App() {
         </div>
       </section>
 
-      {/* Trust Ribbon */}
       <section className="bg-white py-6 border-b border-silver-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-6">
@@ -488,7 +485,6 @@ function App() {
         </div>
       </section>
 
-      {/* Services Section */}
       <section id="services" className="py-24 bg-silver-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
@@ -504,7 +500,6 @@ function App() {
           </AnimatedSection>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Service 1 */}
             <AnimatedSection delay={0}>
               <div className="relative min-h-[26rem] h-full">
                 <div className="relative h-full rounded-2xl border-[0.75px] border-brand-500/50 p-2">
@@ -534,7 +529,6 @@ function App() {
               </div>
             </AnimatedSection>
 
-            {/* Service 2 */}
             <AnimatedSection delay={100}>
               <div className="relative min-h-[26rem] h-full">
                 <div className="relative h-full rounded-2xl border-[0.75px] border-brand-500/50 p-2">
@@ -564,7 +558,6 @@ function App() {
               </div>
             </AnimatedSection>
 
-            {/* Service 3 */}
             <AnimatedSection delay={200}>
               <div className="relative min-h-[26rem] h-full">
                 <div className="relative h-full rounded-2xl border-[0.75px] border-brand-500/50 p-2">
@@ -594,7 +587,6 @@ function App() {
               </div>
             </AnimatedSection>
 
-            {/* Service 4 */}
             <AnimatedSection delay={300}>
               <div className="relative min-h-[26rem] h-full">
                 <div className="relative h-full rounded-2xl border-[0.75px] border-brand-500/50 p-2">
@@ -627,7 +619,6 @@ function App() {
         </div>
       </section>
 
-      {/* Method Section */}
       <section id="method" className="py-24 bg-navy-950 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]">
           <div
@@ -686,10 +677,8 @@ function App() {
         </div>
       </section>
 
-      {/* Conditions Timeline */}
       <Timeline data={conditionsData} />
 
-      {/* Testimonials */}
       <TestimonialsSection
         title="Real Patients. Real Results."
         description="Hear from patients in Scottsdale who have transformed their health with our precision wellness approach."
@@ -697,7 +686,6 @@ function App() {
         highlightWord="Results"
       />
 
-      {/* Meet the Team */}
       <section id="team" className="py-24 bg-silver-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
@@ -714,7 +702,7 @@ function App() {
 
           <div className="flex justify-center">
             <AnimatedSection>
-              <div className="bg-white border border-silver-300 rounded-2xl p-10 text-center shadow-xl max-w-md hover:shadow-2xl transition-shadow hover:-translate-y-1 transition-all duration-300">
+              <div className="bg-white border border-silver-300 rounded-2xl p-10 text-center shadow-xl max-w-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                 <div className="relative inline-block mb-6">
                   <div className="absolute inset-0 bg-brand-200 rounded-full blur-lg opacity-40" />
                   <img
@@ -735,7 +723,6 @@ function App() {
         </div>
       </section>
 
-      {/* FAQ */}
       <section id="faq" className="py-24 bg-navy-950 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]">
           <div
@@ -792,7 +779,6 @@ function App() {
         </div>
       </section>
 
-      {/* Contact Section */}
       <section id="contact" className="py-24 bg-silver-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
@@ -808,7 +794,6 @@ function App() {
           </AnimatedSection>
 
           <div className="grid lg:grid-cols-2 gap-10">
-            {/* Contact Info */}
             <AnimatedSection>
               <div className="bg-white border border-silver-300 rounded-2xl p-8 shadow-lg h-full">
                 <h3 className="text-2xl font-bold text-navy-900 mb-8">Contact Information</h3>
@@ -892,7 +877,6 @@ function App() {
               </div>
             </AnimatedSection>
 
-            {/* Patient Portal */}
             <AnimatedSection delay={150}>
               <div className="bg-navy-950 border border-brand-500/30 rounded-2xl p-8 shadow-lg h-full flex flex-col relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full -translate-y-32 translate-x-32" />
@@ -929,14 +913,12 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-navy-950 border-t border-brand-800/50 pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-10 mb-12">
-            {/* Brand */}
             <div>
               <img
-                src={LOGO}
+                src={logoSrc}
                 alt="Focal Point Vitality"
                 className="h-10 w-auto mb-4"
               />
@@ -960,7 +942,6 @@ function App() {
               <p className="text-red-400/80 text-xs font-medium">For medical emergencies, call 911.</p>
             </div>
 
-            {/* Quick Links */}
             <div>
               <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Quick Links</h3>
               <div className="space-y-2.5">
@@ -979,7 +960,6 @@ function App() {
               </div>
             </div>
 
-            {/* Legal + Portal */}
             <div>
               <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Legal</h3>
               <div className="space-y-2.5 mb-8">
@@ -1006,7 +986,6 @@ function App() {
         </div>
       </footer>
 
-      {/* Sticky CTA */}
       <div className="fixed bottom-6 right-6 z-40">
         <a
           href={BOOKING_URL}
@@ -1018,7 +997,6 @@ function App() {
         </a>
       </div>
 
-      {/* Scroll to top */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
