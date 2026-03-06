@@ -1,63 +1,44 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import path from 'path';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import type { Plugin } from 'vite';
 import fs from 'fs';
-import fsp from 'fs/promises';
 
-function safeCopyPublicPlugin() {
+function copyPublicImages(): Plugin {
   return {
-    name: 'safe-copy-public',
-    apply: 'build' as const,
-    closeBundle: async () => {
+    name: 'copy-public-images',
+    closeBundle() {
       const publicDir = path.resolve(__dirname, 'public');
-      const distDir = path.resolve(__dirname, 'dist');
-      if (!fs.existsSync(publicDir)) return;
-      const entries = fs.readdirSync(publicDir);
-      for (const entry of entries) {
-        const src = path.join(publicDir, entry);
-        const dest = path.join(distDir, entry);
-        try {
-          fs.accessSync(src, fs.constants.R_OK);
-          await fsp.copyFile(src, dest);
-        } catch {
-          // skip inaccessible files
-        }
+      const targetDir = path.resolve(__dirname, 'wordpress-plugin/focal-point-vitality/assets/images');
+
+      if (!fs.existsSync(targetDir)) {
+        fs.mkdirSync(targetDir, { recursive: true });
       }
-    },
-    configureServer(server: { middlewares: { use: (fn: (req: { url?: string }, res: { setHeader: (k: string, v: string) => void; end: (d: Buffer) => void; statusCode: number }, next: () => void) => void) => void } }) {
-      server.middlewares.use((req, res, next) => {
-        const url = req.url?.split('?')[0] ?? '';
-        const filePath = path.join(__dirname, 'public', decodeURIComponent(url));
-        try {
-          fs.accessSync(filePath, fs.constants.R_OK);
-          const stat = fs.statSync(filePath);
-          if (stat.isFile()) {
-            const ext = path.extname(filePath).toLowerCase();
-            const mimeTypes: Record<string, string> = {
-              '.png': 'image/png',
-              '.jpg': 'image/jpeg',
-              '.jpeg': 'image/jpeg',
-              '.webp': 'image/webp',
-              '.gif': 'image/gif',
-              '.svg': 'image/svg+xml',
-              '.ico': 'image/x-icon',
-            };
-            const mime = mimeTypes[ext] ?? 'application/octet-stream';
-            res.setHeader('Content-Type', mime);
-            res.end(fs.readFileSync(filePath));
-            return;
+
+      if (fs.existsSync(publicDir)) {
+        const files = fs.readdirSync(publicDir);
+        const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.gif', '.webp', '.ico'];
+
+        files.forEach(file => {
+          const ext = path.extname(file).toLowerCase();
+          if (imageExtensions.includes(ext)) {
+            const src = path.join(publicDir, file);
+            const dest = path.join(targetDir, file);
+
+            if (fs.statSync(src).isFile()) {
+              fs.copyFileSync(src, dest);
+              console.log(`Copied ${file} to assets/images/`);
+            }
           }
-        } catch {
-          // not a public file, continue
-        }
-        next();
-      });
-    },
+        });
+      }
+    }
   };
 }
 
 export default defineConfig({
-  plugins: [react(), safeCopyPublicPlugin()],
+  plugins: [react(), copyPublicImages()],
+  base: './',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -66,5 +47,25 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
-  publicDir: false,
+  build: {
+    outDir: 'wordpress-plugin/focal-point-vitality/assets',
+    emptyOutDir: true,
+    manifest: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'src/main.tsx'),
+      },
+      output: {
+        entryFileNames: 'js/[name]-[hash].js',
+        chunkFileNames: 'js/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith('.css')) {
+            return 'css/[name]-[hash][extname]';
+          }
+          return 'images/[name]-[hash][extname]';
+        },
+      },
+    },
+    cssCodeSplit: false,
+  },
 });

@@ -1,0 +1,49 @@
+{
+  "src/assets/images/condition-body.webp": {
+    "file": "images/condition-body-C6YRBorW.webp",
+    "src": "src/assets/images/condition-body.webp"
+  },
+  "src/assets/images/condition-energy.webp": {
+    "file": "images/condition-energy-CW4Dlpa1.webp",
+    "src": "src/assets/images/condition-energy.webp"
+  },
+  "src/assets/images/condition-hormones.webp": {
+    "file": "images/condition-hormones-DKWimovu.webp",
+    "src": "src/assets/images/condition-hormones.webp"
+  },
+  "src/assets/images/condition-metabolic.webp": {
+    "file": "images/condition-metabolic-CJFTMkOn.webp",
+    "src": "src/assets/images/condition-metabolic.webp"
+  },
+  "src/assets/images/condition-sleep.webp": {
+    "file": "images/condition-sleep-DstdQ4pL.webp",
+    "src": "src/assets/images/condition-sleep.webp"
+  },
+  "src/assets/images/hero-patient.webp": {
+    "file": "images/hero-patient-BgCuPszA.webp",
+    "src": "src/assets/images/hero-patient.webp"
+  },
+  "src/assets/images/logo.png": {
+    "file": "images/logo-woYOpQR6.png",
+    "src": "src/assets/images/logo.png"
+  },
+  "src/main.tsx": {
+    "file": "js/main-CMGAqKd5.js",
+    "name": "main",
+    "src": "src/main.tsx",
+    "isEntry": true,
+    "assets": [
+      "images/logo-woYOpQR6.png",
+      "images/condition-energy-CW4Dlpa1.webp",
+      "images/condition-body-C6YRBorW.webp",
+      "images/condition-sleep-DstdQ4pL.webp",
+      "images/condition-hormones-DKWimovu.webp",
+      "images/condition-metabolic-CJFTMkOn.webp",
+      "images/hero-patient-BgCuPszA.webp"
+    ]
+  },
+  "style.css": {
+    "file": "css/style-CCxe_K4w.css",
+    "src": "style.css"
+  }
+}
