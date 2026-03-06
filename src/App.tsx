@@ -11,6 +11,8 @@ const BOOKING_URL = 'https://link.vitalityatfocalpoint.com/widget/bookings/disco
 const ASSESSMENT_URL = 'https://link.vitalityatfocalpoint.com/widget/quiz/o7Sd0lcPVXXs9Exju7Vi';
 const PORTAL_URL = 'https://2ib5r7xl4iaxafsdmomv.app.clientclub.net/login';
 const MAPS_URL = 'https://maps.google.com/?q=15454+N+Frank+Lloyd+Wright+Blvd+A2+Suite+23,+Scottsdale,+AZ+85260';
+const EMAIL = 'sales@focalpointvitality.com';
+const LOGO = '/FocalPoint_Color_SMALL.png';
 
 function useScrollAnimation() {
   const ref = useRef<HTMLDivElement>(null);
@@ -146,7 +148,7 @@ function App() {
             </div>
           </div>
           <img
-            src="https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800"
+            src="/condition-energy.webp"
             alt="Active lifestyle with renewed energy"
             className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
@@ -171,7 +173,7 @@ function App() {
             </div>
           </div>
           <img
-            src="https://images.pexels.com/photos/6975474/pexels-photo-6975474.jpeg?auto=compress&cs=tinysrgb&w=800"
+            src="/condition-body.webp"
             alt="Body composition and fitness results"
             className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
@@ -196,7 +198,7 @@ function App() {
             </div>
           </div>
           <img
-            src="https://images.pexels.com/photos/3771069/pexels-photo-3771069.jpeg?auto=compress&cs=tinysrgb&w=800"
+            src="/condition-sleep.webp"
             alt="Restorative sleep and recovery"
             className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
           />
@@ -221,7 +223,7 @@ function App() {
             </div>
           </div>
           <img
-            src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=800"
+            src="/condition-hormones.webp"
             alt="Medical consultation and hormone therapy"
             className="rounded-xl object-cover object-top h-48 md:h-64 w-full shadow-lg"
           />
@@ -245,6 +247,11 @@ function App() {
               <p className="text-slate-400 text-sm">Hormone balance protocols to stabilize mood and support emotional well-being</p>
             </div>
           </div>
+          <img
+            src="/condition-metabolic.webp"
+            alt="Healthy nutrition and metabolic wellness"
+            className="rounded-xl object-cover h-48 md:h-64 w-full shadow-lg"
+          />
           <div className="text-center mt-8">
             <a
               href={BOOKING_URL}
@@ -300,8 +307,8 @@ function App() {
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center gap-4">
               <img
-                src="/Vitality_Color.png"
-                alt="Vitality at Focal Point"
+                src={LOGO}
+                alt="Focal Point Vitality"
                 className="h-12 w-auto"
               />
             </div>
@@ -823,7 +830,7 @@ function App() {
                     </div>
                     <div>
                       <p className="text-xs uppercase tracking-wide text-slate-400 font-medium mb-0.5">Email</p>
-                      <a href="mailto:info@vitalityatfocalpoint.com" className="text-navy-800 font-semibold hover:text-brand-500 transition-colors">info@vitalityatfocalpoint.com</a>
+                      <a href={`mailto:${EMAIL}`} className="text-navy-800 font-semibold hover:text-brand-500 transition-colors">{EMAIL}</a>
                     </div>
                   </div>
 
@@ -929,9 +936,9 @@ function App() {
             {/* Brand */}
             <div>
               <img
-                src="/FocalPoint_Color.png"
-                alt="Focal Point Rejuvenation Center"
-                className="h-10 w-auto mb-4 brightness-0 invert opacity-80"
+                src={LOGO}
+                alt="Focal Point Vitality"
+                className="h-10 w-auto mb-4"
               />
               <p className="text-slate-400 text-sm mb-3 leading-relaxed">
                 Precision medical wellness — hormone optimization, cellular therapy, and weight management in Scottsdale, AZ.
@@ -944,8 +951,11 @@ function App() {
               >
                 15454 N Frank Lloyd Wright Blvd A2 Suite 23<br />Scottsdale, AZ 85260
               </a>
-              <a href="tel:+14805639966" className="text-slate-500 text-sm hover:text-brand-400 transition-colors block mb-4">
+              <a href="tel:+14805639966" className="text-slate-500 text-sm hover:text-brand-400 transition-colors block mb-1">
                 +1 480-563-9966
+              </a>
+              <a href={`mailto:${EMAIL}`} className="text-slate-500 text-sm hover:text-brand-400 transition-colors block mb-4">
+                {EMAIL}
               </a>
               <p className="text-red-400/80 text-xs font-medium">For medical emergencies, call 911.</p>
             </div>
@@ -990,7 +1000,7 @@ function App() {
 
           <div className="border-t border-brand-800/30 pt-8 text-center">
             <p className="text-slate-500 text-sm">
-              © {new Date().getFullYear()} Vitality at Focal Point Rejuvenation Center. All rights reserved.
+              © {new Date().getFullYear()} Focal Point Vitality. All rights reserved.
             </p>
           </div>
         </div>

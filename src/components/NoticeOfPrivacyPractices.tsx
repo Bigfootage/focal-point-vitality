@@ -118,7 +118,7 @@ export function NoticeOfPrivacyPractices({ onBack }: NoticeOfPrivacyPracticesPro
               <p>15454 N Frank Lloyd Wright Blvd A2 Suite 23</p>
               <p>Scottsdale, AZ 85260</p>
               <p>Phone: <a href="tel:+14805639966" className="text-brand-400 hover:text-brand-300">+1 480-563-9966</a></p>
-              <p>Email: <a href="mailto:info@vitalityatfocalpoint.com" className="text-brand-400 hover:text-brand-300">info@vitalityatfocalpoint.com</a></p>
+              <p>Email: <a href="mailto:sales@focalpointvitality.com" className="text-brand-400 hover:text-brand-300">sales@focalpointvitality.com</a></p>
             </div>
           </section>
 
