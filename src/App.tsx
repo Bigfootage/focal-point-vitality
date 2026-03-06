@@ -17,7 +17,6 @@ import heroPatient from '@/assets/images/hero-patient.webp';
 
 const BOOKING_URL = 'https://link.vitalityatfocalpoint.com/widget/bookings/discovery-booking-link';
 const ASSESSMENT_URL = 'https://link.vitalityatfocalpoint.com/widget/quiz/o7Sd0lcPVXXs9Exju7Vi';
-const PORTAL_URL = 'https://2ib5r7xl4iaxafsdmomv.app.clientclub.net/login';
 const MAPS_URL = 'https://maps.google.com/?q=15454+N+Frank+Lloyd+Wright+Blvd+A2+Suite+23,+Scottsdale,+AZ+85260';
 const EMAIL = 'sales@focalpointvitality.com';
 
@@ -294,16 +293,6 @@ function App() {
               <span>15454 N Frank Lloyd Wright Blvd, Suite 23, Scottsdale, AZ</span>
             </a>
           </div>
-          <div className="flex items-center gap-4">
-            <a
-              href={PORTAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-1.5 text-brand-300 hover:text-brand-200 transition-colors font-medium"
-            >
-              Patient Portal →
-            </a>
-          </div>
         </div>
       </div>
 
@@ -325,12 +314,12 @@ function App() {
               <a href="#faq" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">FAQ</a>
               <a href="#contact" className="text-silver-300 hover:text-brand-300 font-medium transition-colors text-sm uppercase tracking-wide">Contact</a>
               <a
-                href={PORTAL_URL}
+                href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-2 bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-lg font-semibold transition-all text-sm hover:scale-105"
               >
-                Patient Portal
+                Book Consultation
               </a>
             </div>
 
@@ -356,12 +345,12 @@ function App() {
                   </a>
                 ))}
                 <a
-                  href={PORTAL_URL}
+                  href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-brand-500 hover:bg-brand-600 text-white px-4 py-3 rounded-lg font-semibold transition-colors text-center mt-2"
                 >
-                  Patient Portal
+                  Book Consultation
                 </a>
               </div>
             </div>
@@ -775,7 +764,7 @@ function App() {
             </p>
           </AnimatedSection>
 
-          <div className="grid lg:grid-cols-2 gap-10">
+          <div className="max-w-2xl mx-auto">
             <AnimatedSection>
               <div className="bg-navy-800 border border-brand-500/20 rounded-2xl p-8 shadow-lg h-full">
                 <h3 className="text-2xl font-bold text-white mb-8">Contact Information</h3>
@@ -858,39 +847,6 @@ function App() {
                 </div>
               </div>
             </AnimatedSection>
-
-            <AnimatedSection delay={150}>
-              <div className="bg-navy-800 border border-brand-500/30 rounded-2xl p-8 shadow-lg h-full flex flex-col relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full -translate-y-32 translate-x-32" />
-                <div className="relative">
-                  <div className="bg-brand-500/10 border border-brand-500/20 rounded-xl p-4 inline-block mb-6">
-                    <Shield className="text-brand-400" size={32} />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">Patient Portal</h3>
-                  <p className="text-slate-400 leading-relaxed mb-8">
-                    Manage your appointments, securely message your care team, access your treatment plans, and review lab results — all through our HIPAA-compliant patient portal.
-                  </p>
-
-                  <div className="space-y-3 mb-8">
-                    {['Secure messaging with your provider', 'Appointment scheduling and management', 'Access to lab results and treatment plans', 'Prescription and refill requests'].map((feature) => (
-                      <div key={feature} className="flex items-center gap-3">
-                        <div className="w-1.5 h-1.5 bg-brand-400 rounded-full shrink-0" />
-                        <span className="text-slate-300 text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <a
-                    href={PORTAL_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full bg-brand-500 hover:bg-brand-600 text-white px-6 py-4 rounded-xl font-semibold transition-all text-center hover:scale-[1.02] shadow-lg shadow-brand-900/30"
-                  >
-                    Access Patient Portal
-                  </a>
-                </div>
-              </div>
-            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -943,19 +899,11 @@ function App() {
 
             <div>
               <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Legal</h3>
-              <div className="space-y-2.5 mb-8">
+              <div className="space-y-2.5">
                 <button onClick={() => showPage('privacy')} className="block text-slate-400 hover:text-brand-300 transition-colors text-sm text-left">Privacy Policy</button>
                 <button onClick={() => showPage('terms')} className="block text-slate-400 hover:text-brand-300 transition-colors text-sm text-left">Terms of Service</button>
                 <button onClick={() => showPage('notice')} className="block text-slate-400 hover:text-brand-300 transition-colors text-sm text-left">Notice of Privacy Practices</button>
               </div>
-              <a
-                href={PORTAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-brand-500 hover:bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all hover:scale-105"
-              >
-                Patient Portal →
-              </a>
             </div>
           </div>
 
