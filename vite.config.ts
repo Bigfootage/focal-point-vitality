@@ -23,6 +23,35 @@ function safeCopyPublicPlugin() {
         }
       }
     },
+    configureServer(server: { middlewares: { use: (fn: (req: { url?: string }, res: { setHeader: (k: string, v: string) => void; end: (d: Buffer) => void; statusCode: number }, next: () => void) => void) => void } }) {
+      server.middlewares.use((req, res, next) => {
+        const url = req.url?.split('?')[0] ?? '';
+        const filePath = path.join(__dirname, 'public', decodeURIComponent(url));
+        try {
+          fs.accessSync(filePath, fs.constants.R_OK);
+          const stat = fs.statSync(filePath);
+          if (stat.isFile()) {
+            const ext = path.extname(filePath).toLowerCase();
+            const mimeTypes: Record<string, string> = {
+              '.png': 'image/png',
+              '.jpg': 'image/jpeg',
+              '.jpeg': 'image/jpeg',
+              '.webp': 'image/webp',
+              '.gif': 'image/gif',
+              '.svg': 'image/svg+xml',
+              '.ico': 'image/x-icon',
+            };
+            const mime = mimeTypes[ext] ?? 'application/octet-stream';
+            res.setHeader('Content-Type', mime);
+            res.end(fs.readFileSync(filePath));
+            return;
+          }
+        } catch {
+          // not a public file, continue
+        }
+        next();
+      });
+    },
   };
 }
 
