@@ -20,7 +20,7 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
           }
         });
       },
-      { threshold: 0.5, rootMargin: '-20% 0px -20% 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
     );
 
     const items = containerRef.current?.querySelectorAll('[data-index]');
@@ -53,9 +53,9 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
         </div>
 
         <div ref={containerRef} className="relative">
-          <div className="absolute left-0 md:left-8 top-0 bottom-0 w-px bg-brand-500/20" />
+          <div className="absolute left-4 md:left-8 top-0 bottom-0 w-px bg-brand-500/20" />
           <div
-            className="absolute left-0 md:left-8 top-0 w-px bg-brand-400 transition-all duration-500"
+            className="absolute left-4 md:left-8 top-0 w-px bg-brand-400 transition-all duration-500"
             style={{ height: `${((activeIndex + 1) / data.length) * 100}%` }}
           />
 
@@ -65,14 +65,14 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
                 key={index}
                 data-index={index}
                 className={cn(
-                  'grid md:grid-cols-[4rem_1fr] gap-0 md:gap-8 transition-all duration-500',
+                  'relative grid grid-cols-[2.5rem_1fr] md:grid-cols-[4rem_1fr] gap-4 md:gap-8 transition-all duration-500',
                   index < data.length - 1 && 'pb-16'
                 )}
               >
-                <div className="hidden md:flex flex-col items-center pt-1">
+                <div className="flex flex-col items-center pt-1">
                   <div
                     className={cn(
-                      'w-4 h-4 rounded-full border-2 transition-all duration-300 z-10',
+                      'w-4 h-4 rounded-full border-2 transition-all duration-300 z-10 flex-shrink-0',
                       index <= activeIndex
                         ? 'bg-brand-500 border-brand-400 shadow-lg shadow-brand-500/50'
                         : 'bg-navy-800 border-brand-500/40'
