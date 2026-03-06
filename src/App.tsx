@@ -13,6 +13,7 @@ import conditionBody from '@/assets/images/condition-body.webp';
 import conditionSleep from '@/assets/images/condition-sleep.webp';
 import conditionHormones from '@/assets/images/condition-hormones.webp';
 import conditionMetabolic from '@/assets/images/condition-metabolic.webp';
+import heroPatient from '@/assets/images/hero-patient.webp';
 
 const BOOKING_URL = 'https://link.vitalityatfocalpoint.com/widget/bookings/discovery-booking-link';
 const ASSESSMENT_URL = 'https://link.vitalityatfocalpoint.com/widget/quiz/o7Sd0lcPVXXs9Exju7Vi';
@@ -432,7 +433,7 @@ function App() {
             <div className="relative hidden lg:block">
               <div className="absolute -inset-4 bg-brand-500/10 rounded-3xl blur-2xl" />
               <img
-                src="/hero-patient.webp"
+                src={heroPatient}
                 alt="Healthy active patient at Focal Point Vitality"
                 className="relative rounded-2xl shadow-2xl w-full h-[620px] object-cover border border-brand-500/20"
               />
