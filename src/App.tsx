@@ -432,8 +432,8 @@ function App() {
             <div className="relative hidden lg:block">
               <div className="absolute -inset-4 bg-brand-500/10 rounded-3xl blur-2xl" />
               <img
-                src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=900"
-                alt="Medical professional consultation"
+                src="/hero-patient.webp"
+                alt="Healthy active patient at Focal Point Vitality"
                 className="relative rounded-2xl shadow-2xl w-full h-[620px] object-cover border border-brand-500/20"
               />
               <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3">
