@@ -383,8 +383,8 @@ function App() {
         <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/95 to-navy-800/60" />
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-silver-100 to-transparent" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 w-full">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div className="space-y-8">
               <div className="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/30 rounded-full px-4 py-2 text-brand-300 text-sm font-medium">
                 <div className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
@@ -397,6 +397,25 @@ function App() {
               <p className="text-xl text-slate-300 leading-relaxed max-w-xl">
                 Advanced hormone optimization, cellular therapy, and medical weight management — precision protocols engineered around your biology.
               </p>
+
+              <div className="relative lg:hidden">
+                <div className="absolute -inset-4 bg-brand-500/10 rounded-3xl blur-2xl" />
+                <img
+                  src={heroPatient}
+                  alt="Healthy active patient at Focal Point Vitality"
+                  className="relative rounded-2xl shadow-2xl w-full h-72 sm:h-96 object-cover border border-brand-500/20"
+                />
+                <div className="absolute -bottom-4 left-4 bg-white rounded-2xl shadow-xl p-3 flex items-center gap-3">
+                  <div className="bg-brand-500 rounded-xl p-2">
+                    <Shield className="text-white" size={18} />
+                  </div>
+                  <div>
+                    <div className="font-bold text-navy-900 text-xs">HIPAA Compliant</div>
+                    <div className="text-slate-500 text-xs">Board Certified Provider</div>
+                  </div>
+                </div>
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <a
                   href={BOOKING_URL}
