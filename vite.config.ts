@@ -26,8 +26,12 @@ function copyPublicImages(): Plugin {
             const dest = path.join(targetDir, file);
 
             if (fs.statSync(src).isFile()) {
-              fs.copyFileSync(src, dest);
-              console.log(`Copied ${file} to assets/images/`);
+              try {
+                fs.copyFileSync(src, dest);
+                console.log(`Copied ${file} to assets/images/`);
+              } catch {
+                console.warn(`Skipped ${file} (copy failed)`);
+              }
             }
           }
         });
@@ -47,6 +51,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  publicDir: false,
   build: {
     outDir: 'wordpress-plugin/focal-point-vitality/assets',
     emptyOutDir: true,

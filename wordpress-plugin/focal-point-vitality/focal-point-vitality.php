@@ -3,7 +3,7 @@
  * Plugin Name: Focal Point Vitality
  * Plugin URI: https://focal-point-vitality-2dea.bolt.host
  * Description: Precision medical wellness in Scottsdale, AZ. Advanced hormone optimization, cellular (peptide) therapy, and medical weight management. Board-certified, evidence-based, personalized care at Focal Point Vitality.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Focal Point Vitality
  * Author URI: https://focal-point-vitality-2dea.bolt.host
  * License: GPL v2 or later
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('FOCAL_POINT_VITALITY_VERSION', '1.0.0');
+define('FOCAL_POINT_VITALITY_VERSION', '1.0.1');
 define('FOCAL_POINT_VITALITY_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('FOCAL_POINT_VITALITY_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -67,7 +67,7 @@ class FOCAL_POINT_VITALITY_Plugin {
             if (file_exists($manifest_path)) {
                 $manifest = json_decode(file_get_contents($manifest_path), true);
 
-                if (isset($manifest['style.css'])) {
+                if (isset($manifest['style.css']) && isset($manifest['style.css']['file'])) {
                     wp_enqueue_style(
                         'focal-point-vitality-styles',
                         FOCAL_POINT_VITALITY_PLUGIN_URL . 'assets/' . $manifest['style.css']['file'],
@@ -79,10 +79,10 @@ class FOCAL_POINT_VITALITY_Plugin {
                 if (isset($manifest['src/main.tsx'])) {
                     $main_entry = $manifest['src/main.tsx'];
 
-                    if (isset($main_entry['css']) && !empty($main_entry['css'])) {
-                        foreach ($main_entry['css'] as $css_file) {
+                    if (isset($main_entry['css']) && is_array($main_entry['css'])) {
+                        foreach ($main_entry['css'] as $index => $css_file) {
                             wp_enqueue_style(
-                                'focal-point-vitality-styles-inline',
+                                'focal-point-vitality-app-css-' . $index,
                                 FOCAL_POINT_VITALITY_PLUGIN_URL . 'assets/' . $css_file,
                                 array(),
                                 FOCAL_POINT_VITALITY_VERSION
@@ -111,12 +111,27 @@ class FOCAL_POINT_VITALITY_Plugin {
                 error_log('Focal Point Vitality: Manifest file not found at ' . $manifest_path);
             }
 
-            wp_add_inline_style('focal-point-vitality-styles', '
-                #focal-point-vitality-root {
-                    width: 100%;
-                    margin: 0 auto;
+            wp_add_inline_style(
+                wp_style_is('focal-point-vitality-styles', 'registered') ? 'focal-point-vitality-styles' : 'wp-block-library',
+                '
+                #focal-point-vitality-root,
+                .focal-point-vitality-wrapper {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    position: relative;
                 }
-            ');
+                .et_pb_section .focal-point-vitality-wrapper,
+                .et_pb_row .focal-point-vitality-wrapper,
+                .entry-content .focal-point-vitality-wrapper {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                }
+                '
+            );
         }
     }
 
@@ -173,13 +188,14 @@ class FOCAL_POINT_VITALITY_Plugin {
                     <li><strong>Publish the page</strong></li>
                 </ol>
 
-                <h3>What This Plugin Does</h3>
-                <ul>
-                    <li>Displays your complete React application</li>
-                    <li>Fully responsive and optimized for all devices</li>
-                    <li>Works with any WordPress theme</li>
-                    <li>Easy to use - just add the shortcode</li>
-                </ul>
+                <h3>Important: Divi Theme Settings</h3>
+                <p>Since your site uses the Divi theme, for best results:</p>
+                <ol style="font-size: 16px; line-height: 1.8;">
+                    <li>Edit the page containing the shortcode</li>
+                    <li>In the <strong>Divi Page Settings</strong> panel (right sidebar), set <strong>Page Layout</strong> to <strong>"Full Width"</strong></li>
+                    <li>Make sure you are using the <strong>Classic Editor</strong> (not Divi Builder) with just the shortcode</li>
+                    <li>Publish/Update the page</li>
+                </ol>
 
                 <h3>Shortcode Usage</h3>
                 <p>Simply add this shortcode to any page:</p>
@@ -193,7 +209,6 @@ class FOCAL_POINT_VITALITY_Plugin {
                     <li>Select "Focal Point Vitality - Full Width"</li>
                     <li>Publish the page</li>
                 </ol>
-                <p><em>Note: Not all themes support custom page templates. If you don't see this option, just use the shortcode method instead.</em></p>
 
                 <h3>Support</h3>
                 <p>For questions or support, visit <a href="https://focal-point-vitality-2dea.bolt.host" target="_blank">https://focal-point-vitality-2dea.bolt.host</a></p>
@@ -208,18 +223,9 @@ class FOCAL_POINT_VITALITY_Plugin {
                 box-shadow: 0 1px 1px rgba(0,0,0,.04);
                 max-width: 900px;
             }
-            .card h2 {
-                margin-top: 0;
-                font-size: 24px;
-            }
-            .card h3 {
-                margin-top: 30px;
-                font-size: 18px;
-                color: #0073aa;
-            }
-            .card ul li {
-                margin-bottom: 8px;
-            }
+            .card h2 { margin-top: 0; font-size: 24px; }
+            .card h3 { margin-top: 30px; font-size: 18px; color: #0073aa; }
+            .card ul li { margin-bottom: 8px; }
         </style>
         <?php
     }
@@ -249,11 +255,8 @@ class FOCAL_POINT_VITALITY_Plugin {
         $description = 'Precision medical wellness in Scottsdale, AZ. Advanced hormone optimization, cellular (peptide) therapy, and medical weight management. Board-certified, evidence-based, personalized care at Focal Point Vitality.';
 
         ?>
-        <!-- SEO Meta Tags -->
         <meta name="description" content="<?php echo esc_attr($description); ?>">
         <meta name="author" content="Focal Point Vitality">
-
-        <!-- Open Graph Meta Tags -->
         <meta property="og:type" content="website">
         <meta property="og:url" content="<?php echo esc_url($site_url); ?>">
         <meta property="og:title" content="<?php echo esc_attr($title); ?>">
@@ -262,15 +265,11 @@ class FOCAL_POINT_VITALITY_Plugin {
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
         <meta property="og:site_name" content="Focal Point Vitality">
-
-        <!-- Twitter Card Meta Tags -->
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:url" content="<?php echo esc_url($site_url); ?>">
         <meta name="twitter:title" content="<?php echo esc_attr($title); ?>">
         <meta name="twitter:description" content="<?php echo esc_attr($description); ?>">
         <meta name="twitter:image" content="<?php echo esc_url($profile_image); ?>">
-
-        <!-- Additional Meta Tags -->
         <meta name="robots" content="index, follow">
         <meta name="theme-color" content="#0a1628">
         <link rel="canonical" href="<?php echo esc_url($site_url); ?>">
